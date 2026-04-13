@@ -1,28 +1,31 @@
-# Architecture — Stage 6: Merge the Branch
+# Architecture — Stage 7: Connect to GitHub
 
 ## Current Structure
 
 ```
-box-runner/
+box-runner/          (local)
 ├── .git/
+│   └── config       (now contains a [remote "origin"] section)
 ├── index.html
-└── style.css    (dark theme now — same on both branches)
+└── style.css
 ```
 
-No new files. `style.css` on `main` has been updated to the dark version via the merge.
+And on GitHub:
 
-## Git History
+```
+github.com/<you>/box-runner   (empty — no commits yet)
+```
+
+## Data Flow
 
 ```mermaid
-flowchart TD
-  A[Commit 1] --> B[Commit 2]
-  B --> C[Commit 3]
-  C --> D[Commit 4: dark theme]
-  D --> M[main and dark-theme]
+flowchart LR
+  A[Your local box-runner] -- git remote add --> B[origin - pointer]
+  B -. will push to .-> C[github.com/you/box-runner]
 ```
 
-Both branch labels now point at Commit 4. The history is still a straight line because the merge was a fast-forward.
+The dotted line shows a connection that exists but has not been used yet. `git push` in Stage 8 turns that dotted line solid.
 
 ## What Changed
 
-The merge did not create a new commit. It simply moved the `main` label from Commit 3 to Commit 4. This is the simplest kind of merge — no merge commit, no conflicts, no drama.
+The local repository now knows where its online twin lives. The online repo exists but is empty. The two sides are introduced but not yet synced.

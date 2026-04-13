@@ -1,48 +1,68 @@
-# Steps — Stage 6: Merge the Branch
+# Steps — Stage 7: Connect to GitHub
+
+> This stage uses the GitHub website and a single Git command.
 
 ## Prerequisites
 
-Completed Stage 5. You are on `dark-theme` with four commits.
+Completed Stage 6. You have a GitHub account.
 
 ## Steps
 
-### 1. Switch to `main`
+### 1. Create an empty repository on GitHub
 
-```bash
-git checkout main
+1. Go to [github.com/new](https://github.com/new).
+2. Set **Repository name** to `box-runner`.
+3. Leave **Description** blank (or write anything you like).
+4. Choose **Public**. Private also works.
+5. **Very important:** leave all three of these **unchecked**:
+   - Add a README file
+   - Add .gitignore
+   - Choose a license
+
+   If you check any of them, GitHub creates a first commit on the remote and pushing becomes more complicated.
+6. Click **Create repository**.
+
+### 2. Copy the repository URL
+
+On the next page, GitHub shows a "Quick setup" block with a URL. Use the **HTTPS** URL — it looks like:
+
+```
+https://github.com/<your-username>/box-runner.git
 ```
 
-Look at `git branch` — asterisk is on `main` now. Run `git log --oneline` — three commits, not four. The dark theme commit lives on `dark-theme` only.
+Copy it.
 
-### 2. Reload the page
+### 3. Add the remote locally
 
-Open `index.html` in the browser. **The light theme is back.**
-
-This is the moment the whole branching concept clicks. You did real work on `dark-theme`, but `main` was completely unaffected. If you had committed the dark theme directly on `main` instead, you would have no escape route.
-
-### 3. Merge `dark-theme` into `main`
+In your terminal, inside the `box-runner` folder:
 
 ```bash
-git merge dark-theme
+git remote add origin https://github.com/<your-username>/box-runner.git
 ```
 
-Git prints something like `Fast-forward` and lists the file change. This is a **fast-forward merge** — Git just moved the `main` label up to where `dark-theme` already was, because `main` had no newer commits of its own.
+Replace `<your-username>` with your actual GitHub username. `origin` is just a name — it is the conventional name for "the main place I push to."
 
-### 4. Reload the page
-
-Refresh the browser. The dark theme is now on `main`. You have successfully promoted your experiment to the main version.
-
-### 5. Confirm the history
+### 4. Verify the remote
 
 ```bash
-git log --oneline
+git remote -v
 ```
 
-Four commits. `git log --oneline --graph --all` shows that `main` and `dark-theme` now point at the same commit.
+You should see two lines:
+
+```
+origin  https://github.com/<your-username>/box-runner.git (fetch)
+origin  https://github.com/<your-username>/box-runner.git (push)
+```
+
+Fetch is for pulling changes down. Push is for uploading changes up. Both point at the same URL.
+
+### 5. Confirm nothing is uploaded yet
+
+Refresh the GitHub page for your repo. It still says it is empty, with instructions for how to "push an existing repository." That confirms that `git remote add` did not send anything — it only stored the address.
 
 ## Verify
 
-- You are on `main`.
-- `git log --oneline` shows four commits, including the dark theme one.
-- The page on `main` shows the dark theme.
-- `git status` is clean.
+- `git remote -v` prints the two origin lines.
+- The GitHub page for `box-runner` shows an empty repository.
+- Your local `git log --oneline` still shows four commits.

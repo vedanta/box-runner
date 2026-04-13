@@ -1,11 +1,11 @@
 {
-  "number": 6,
-  "title": "Merge the Branch",
-  "branch": "stage-6-merge",
-  "tag": "v6-merge",
-  "previous": "stage-5-dark-theme",
-  "concept": "git checkout main + git merge",
-  "summary": "Switch back to main, confirm the dark theme is gone, then merge dark-theme into main to bring the new look home.",
+  "number": 7,
+  "title": "Connect to GitHub",
+  "branch": "stage-7-remote",
+  "tag": "v7-remote",
+  "previous": "stage-6-merge",
+  "concept": "creating a repo and adding a remote",
+  "summary": "Create an empty repository on GitHub and connect it to the local project with git remote add origin.",
   "stack": {
     "frontend": {
       "html": "5",

@@ -1,50 +1,44 @@
-# Exercises — Stage 6: Merge the Branch
+# Exercises — Stage 7: Connect to GitHub
 
-## Exercise 1: Delete the merged branch
+## Exercise 1: Inspect `.git/config`
 
-**Goal:** Clean up branches that have been merged.
-
-**Steps:**
-1. Run `git branch`. You still see `dark-theme`.
-2. Run `git branch -d dark-theme`.
-3. Run `git branch`. `dark-theme` is gone.
-
-**What happened:** Once a branch is merged into `main`, the branch label has served its purpose. `git branch -d` refuses to delete unmerged branches — that is a safety net. The capital `-D` force-deletes, which you should only use when you know what you are doing.
-
-## Exercise 2: Inspect the merge with `--graph`
-
-**Goal:** See the merge visually.
+**Goal:** See where the remote is actually stored.
 
 **Steps:**
-1. Run `git log --oneline --graph --all`.
+1. Run `cat .git/config`.
+2. Look for a `[remote "origin"]` section.
 
-**What happened:** You see all four commits on a single straight line. The fast-forward merge left no fork in the history — it is as if the dark theme commit was always on `main`.
+**What happened:** The remote is just a few lines of text in `.git/config`. Nothing magical. If you wanted to, you could edit that file by hand — but use `git remote` commands instead so Git validates the input.
 
-## Exercise 3: Force a merge commit
+## Exercise 2: Remove and re-add the remote
 
-**Goal:** See the other kind of merge.
-
-**Steps:**
-1. Recreate the branch: `git checkout -b dark-theme`.
-2. Switch back to main: `git checkout main`.
-3. Make a new tiny commit on `main` so the two branches actually diverge:
-   ```bash
-   echo "<!-- Box Runner -->" >> index.html
-   git add index.html
-   git commit -m "Added a comment to index.html"
-   ```
-4. Now merge: `git merge dark-theme --no-ff`.
-5. Run `git log --oneline --graph --all`.
-6. When you are done experimenting, undo: `git reset --hard HEAD~2` and optionally re-merge cleanly.
-
-**What happened:** `--no-ff` forces Git to create a merge commit even when a fast-forward would be possible, so the history shows a visible fork and join. Many teams prefer this because it preserves the fact that a branch existed.
-
-## Exercise 4: Count commits on each branch
-
-**Goal:** Confirm the merge's effect.
+**Goal:** Practice the full lifecycle of a remote.
 
 **Steps:**
-1. Run `git rev-list --count main`.
-2. Run `git rev-list --count dark-theme` (if you still have the branch).
+1. Run `git remote remove origin`.
+2. Run `git remote -v` — no remotes listed.
+3. Run `git remote add origin https://github.com/<your-username>/box-runner.git` again.
+4. Run `git remote -v` — origin is back.
 
-**What happened:** Both counts are 4. Both branches point at the same commit now, so they have the same number of commits reachable from them.
+**What happened:** Removing a remote only deletes the local pointer. The GitHub repo is untouched. You can add and remove remotes freely.
+
+## Exercise 3: Change the URL
+
+**Goal:** Learn `git remote set-url`.
+
+**Steps:**
+1. Run `git remote set-url origin https://github.com/<your-username>/box-runner.git` (same URL — pretend it changed).
+2. Run `git remote -v` to confirm.
+
+**What happened:** `set-url` replaces the existing URL instead of adding a new one. Useful when you move a repo between accounts or migrate between hosts.
+
+## Exercise 4: Peek at the empty repo on GitHub
+
+**Goal:** Get familiar with the GitHub UI.
+
+**Steps:**
+1. Go to your repo page on github.com.
+2. Find the "Quick setup" box.
+3. Read the commands GitHub suggests — you will recognize most of them.
+
+**What happened:** GitHub offers two flows: "create a new repository on the command line" and "push an existing repository." You are doing the second flow, manually.

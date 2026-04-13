@@ -1,18 +1,17 @@
-# Changelog — Stage 6: Merge the Branch
+# Changelog — Stage 7: Connect to GitHub
 
 ## Previous Stage
 
-Stage 5: Experiment on the Branch (branch: `stage-5-dark-theme`)
+Stage 6: Merge the Branch (branch: `stage-6-merge`)
 
 ## Files Changed
 
-No edits to project files. The merge moves commits between branches.
+No files changed. A new Git **remote** is added to the repository configuration.
 
 | Change | What and Why |
 |--------|--------------|
-| `main` branch advanced | `main` now points at the same commit as `dark-theme` (the Stage 5 commit). |
-| `style.css` on main | Updated to the dark theme version because that is what the Stage 5 commit contains. |
+| `.git/config` | Gains a `[remote "origin"]` section with the URL of your new GitHub repo. |
 
 ## Summary
 
-Stage 6 is about `git merge`. You switch to `main`, confirm the light theme is still there (untouched since Stage 3), and then merge `dark-theme` into `main`. Git does a fast-forward merge because `main` was an ancestor of `dark-theme` — no merge commit, no conflicts.
+You create an empty repository on GitHub and connect it to the local project. Nothing is uploaded yet — a remote is a pointer, not a sync. Stage 8 does the actual upload.

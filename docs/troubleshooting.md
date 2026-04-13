@@ -1,45 +1,41 @@
-# Troubleshooting — Stage 6: Merge the Branch
+# Troubleshooting — Stage 7: Connect to GitHub
 
 ## Common Errors
 
-### `fatal: refusing to merge unrelated histories`
+### `fatal: remote origin already exists`
 
-**Cause:** Very rare here, but it happens if the branches were initialized separately. Not expected in this tutorial.
+**Cause:** You already added a remote named `origin`, probably in an earlier attempt.
 
-**Fix:** If you really need to merge them, add `--allow-unrelated-histories`. You should not need this in Box Runner.
+**Fix:** Either remove and re-add — `git remote remove origin` then `git remote add origin <url>` — or update in place: `git remote set-url origin <url>`.
 
-### Merge created a conflict
+### The GitHub repo has a README I did not ask for
 
-**Cause:** Something changed on `main` between the branch point and now. In this tutorial you did nothing on `main` after Stage 3, so a conflict here means you went off-script.
+**Cause:** You checked "Add a README file" when creating the repo on GitHub.
 
-**Fix:** Run `git status` to see which file is conflicted. Open it, find the `<<<<<<<` and `>>>>>>>` markers, choose the version you want, save, then `git add <file>` and `git commit`. If it feels overwhelming, run `git merge --abort` to cancel the merge and try again.
+**Fix:** Easiest — delete the repo on GitHub (Settings → Danger zone → Delete) and recreate it with all checkboxes off. Or learn `git pull --rebase` in Stage 8 and work through the conflict.
 
-### `git merge dark-theme` says "Already up to date"
+### I do not remember my GitHub username
 
-**Cause:** You are already on the same commit as `dark-theme`. Probably you forgot to run `git checkout main` first and tried to merge while standing on `dark-theme`.
+**Fix:** Go to github.com while logged in. Your username appears in the top-right menu and in your profile URL.
 
-**Fix:** `git checkout main`, then `git merge dark-theme`.
+### I do not know which URL to use, HTTPS or SSH
 
-### After the merge the page still looks light
-
-**Cause:** Browser cache.
-
-**Fix:** Hard reload — `Cmd+Shift+R` or `Ctrl+Shift+R`.
+**Fix:** Use HTTPS for this tutorial — it is the default and works without extra setup. SSH is nicer once you do it, but it requires generating and uploading an SSH key first. That is outside the scope of this tutorial.
 
 ## FAQ
 
-### What is a fast-forward merge?
+### Can I have more than one remote?
 
-A merge where your current branch has no commits of its own since it branched. Git can just slide the branch label forward to match the other branch — no merging actually happens. It is the simplest possible outcome.
+Yes. You might have `origin` (GitHub) and `backup` (a second host) at the same time. `git push origin main` and `git push backup main` would send the same commits to both.
 
-### Should I delete merged branches?
+### Does `origin` have to be named `origin`?
 
-Usually yes, once you are sure the work landed. Old merged branches clutter `git branch` output. Use `git branch -d <name>` to delete — the lowercase `-d` only deletes fully merged branches, so it is a safe habit.
+No. It is just a conventional name for "the main remote." You could call it `github`, `upstream`, or anything else. Sticking with `origin` makes your commands match what most tutorials and teams expect.
 
-### Can I merge `main` into `dark-theme` instead?
+### Is the remote URL sensitive?
 
-Yes. `git merge` goes "into the branch you are currently on." That is a common workflow — keeping your feature branch up to date with `main` while you work on it.
+No. A repo URL is public-ish. What is sensitive is your personal access token (if you use HTTPS) or your SSH private key. Never share those.
 
-### What if I change my mind after merging?
+### Why doesn't `git remote add` upload anything?
 
-If you have not pushed yet, `git reset --hard HEAD~1` undoes a merge commit, or you can use the reflog (`git reflog`) to find the previous state. Once you push a merge, undoing it gets socially tricky — talk to your team first.
+Because it only stores a bookmark. Adding a remote is a local operation — Git never contacts the URL until you explicitly run `git fetch`, `git pull`, or `git push`.

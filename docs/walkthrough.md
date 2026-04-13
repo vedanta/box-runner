@@ -1,41 +1,54 @@
-# Walkthrough — Stage 6: Merge the Branch
+# Walkthrough — Stage 7: Connect to GitHub
 
-> This stage is about Git commands, not code.
+> No code changes. This stage is about one Git concept: the remote.
 
-## Command: `git checkout main`
+## Concept: What is a remote?
+
+A **remote** is a named pointer to another copy of your repository. That copy usually lives on a server — GitHub, GitLab, a company server — but it could even be another folder on your own machine.
+
+Remotes do two things:
+
+- **Fetch:** you can download commits from them.
+- **Push:** you can upload commits to them.
+
+You can have many remotes per repo, but most projects have just one, and it is conventionally named `origin`.
+
+## Command: `git remote add origin <url>`
 
 ```bash
-git checkout main
+git remote add origin https://github.com/<your-username>/box-runner.git
 ```
 
 **What's happening:**
 
-Switches your current branch to `main`. Git updates `HEAD` to point at `main` and rewrites any files on disk that differ between the two branches. In this case, `style.css` gets replaced with the light-theme version (because that is what the Stage 3 commit contains), and `index.html` stays the same (it never changed on `dark-theme`).
+`git remote add` creates a new remote. Three parts:
 
-This is what lets you try something on a branch without risk — `main` is preserved, and you can return to it exactly as it was.
+1. `add` — the action.
+2. `origin` — the name you want to give this remote. `origin` is the convention for "the primary place."
+3. `https://github.com/...` — the URL Git should use when fetching from or pushing to this remote.
 
-## Command: `git merge dark-theme`
+All this command does is write a few lines to `.git/config`. No network traffic. Nothing is uploaded. The remote is a bookmark, not a sync.
+
+## Command: `git remote -v`
 
 ```bash
-git merge dark-theme
+git remote -v
 ```
 
 **What's happening:**
 
-`git merge <branch>` brings the commits from `<branch>` into your current branch. Because `main` had no new commits since `dark-theme` branched off, Git does the simplest possible merge: it moves the `main` label forward to the same commit `dark-theme` points at.
+Lists every remote you have, with the URLs it uses for fetch and push. The `-v` stands for "verbose" — without it, you get just the names. With it, you see the actual URLs, which is what you usually want.
 
-This is called a **fast-forward** merge. No merge commit is created — the history stays linear.
+## Why an empty GitHub repo?
 
-If `main` had gained its own commits in the meantime, Git would have created a **merge commit** with two parents. You do not hit that case here because nothing else touched `main`.
+Because you want your local history to become the starting history on GitHub. If you checked "Add a README file" when creating the repo, GitHub would make its own first commit, and your local `main` would not match. You would have to resolve that mismatch before pushing. Leaving the new repo completely empty avoids all of that.
 
-## The result
+## The HTTPS URL and authentication
 
-After the merge:
+The first time you push (in Stage 8), GitHub will ask you to authenticate. Modern GitHub expects a **personal access token** (PAT) instead of your password. If you see a password prompt during push:
 
-- `main` points at the same commit as `dark-theme`.
-- `style.css` on `main` is now the dark version.
-- `dark-theme` still exists as a label. You could delete it with `git branch -d dark-theme`, but you do not have to.
+- Generate a PAT in your GitHub settings (Developer settings → Personal access tokens → Tokens (classic)).
+- Give it the `repo` scope.
+- Paste the token when Git asks for your "password."
 
-## Why this matters
-
-Every real project uses branches for features and fixes, then merges them back to a main line. The mental picture you just built — "a branch is a safe place to try things, and merging brings it home" — is the entire mental model for team Git workflows.
+You only do this setup once per machine.
