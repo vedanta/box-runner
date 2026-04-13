@@ -1,56 +1,69 @@
-# LearnGen
+# Box Runner
 
-A GitHub template for building staged tutorial projects with AI agents.
+> Learn **Git** and **GitHub** by building the start screen of a tiny HTML+CSS game.
 
-**Turn a tutorial idea into a complete learning site — one command at a time.**
+![HTML](https://img.shields.io/badge/HTML-5-orange)
+![CSS](https://img.shields.io/badge/CSS-3-blue)
+![Git](https://img.shields.io/badge/Git-2.40%2B-f05032)
+![Stages](https://img.shields.io/badge/stages-10-green)
+
+A hands-on beginner tutorial that teaches the everyday Git workflow — `init`, `add`, `commit`, `branch`, `merge`, `push` — by making small, visible changes to a webpage called **Box Runner**.
+
+Every stage changes the page in a way you can **see in your browser**, and every stage uses Git to save that change. No JavaScript, no build tools, no frameworks.
+
+## What You'll Learn
+
+- Saving versions of your work with `git commit`
+- Tracking what changed with `git status` and `git log`
+- Trying new ideas safely with branches
+- Bringing successful experiments home with `git merge`
+- Publishing your project online with GitHub
 
 ## Quick Start
 
 ```bash
-# 1. Create your tutorial repo from this template
-gh repo create my-tutorial --template vedanta/learngen --public --clone
-cd my-tutorial
+# Clone the tutorial
+git clone https://github.com/vedanta/box-runner.git
+cd box-runner
 
-# 2. Initialize (interactive 5-round flow)
-# @tutorial-init "Build a URL shortener with Go and SQLite"
+# Check out stage 0 (the starting point)
+git checkout stage-0-create-screen
 
-# 3. Install docs dependencies
-cd docs-site && npm install && cd ..
+# Open the webpage
+open index.html    # macOS
+# xdg-open index.html   # Linux
+# start index.html      # Windows
 
-# 4. Enable GitHub Pages
-gh api repos/<user>/<repo>/pages -X POST -f build_type=workflow
-
-# 5. Build stages one at a time
-# @tutorial-turbo           # builds + deploys next stage
-# @tutorial-turbo --status  # check progress
+# Read the docs
+make docs
 ```
-
-## What It Does
-
-1. **`@tutorial-init`** — Asks 5 rounds of questions, generates a structured roadmap and scaffolds the entire project
-2. **`@tutorial-turbo`** — Reads the roadmap, builds one stage (code + 8 doc files), deploys to the docs site
-3. **Repeat** until all stages are deployed
-
-## What You Get
-
-- Branch-per-stage tutorial with working code at every stage
-- VitePress docs site with dark mode, mermaid diagrams, collapsible sidebar
-- Landing page with grouped stage cards and progress indicators
-- 8 documentation files per stage (overview, changelog, steps, walkthrough, architecture, exercises, troubleshooting)
-- GitHub Actions auto-deployment to GitHub Pages
-- Pipeline state tracking for resumable builds
 
 ## Documentation
 
-See [docs/LEARNGEN.md](docs/LEARNGEN.md) for the full design document.
+- **Roadmap:** [docs/ROADMAP.md](docs/ROADMAP.md)
+- **Overview:** [docs/overview.md](docs/overview.md)
+- **Live site:** https://vedanta.github.io/box-runner/
 
-## Reference Implementation
+## The 10 Stages
 
-The [Fortune App](https://github.com/vedanta/fortune-app) tutorial was built with this pattern.
+| # | Stage | Git Concept |
+|---|-------|-------------|
+| 0 | Create the Game Screen | project setup |
+| 1 | First Save Point | `git init`, `add`, `commit` |
+| 2 | Add Styling | commit new + edited files |
+| 3 | Add the Scoreboard | `git log` |
+| 4 | Try a Branch | `git checkout -b` |
+| 5 | Experiment on the Branch | commit on a branch |
+| 6 | Merge the Branch | `git merge` |
+| 7 | Connect to GitHub | `git remote add` |
+| 8 | Push to GitHub | `git push -u origin main` |
+| 9 | Edit, Commit, Push Again | the everyday loop |
 
-## Authors
+## Who This Is For
 
-Vedanta
+- Brand-new web developers who have never used Git
+- Students who know a little HTML/CSS and want to start saving their work
+- Anyone who tried a "Git tutorial" before and felt lost in abstract diagrams
 
 ## License
 

@@ -2,42 +2,109 @@
 
 ## Project Overview
 
-LearnGen is a GitHub template for building staged tutorial projects with AI agents. Users clone this template, run `@tutorial-init` to set up their tutorial, then run `@tutorial-turbo` to build stages one at a time.
+**Box Runner** is a beginner tutorial that teaches **Git and GitHub** by building the start screen of a tiny browser game using only **HTML and CSS**. There is no JavaScript, no build system, no package manager, and no framework. The entire project is two files: `index.html` and `style.css`.
 
-**This file serves two purposes:**
-1. When developing LearnGen itself — tells agents how this repo works
-2. When cloned as a template — gets replaced by `@tutorial-init` with project-specific coding standards
+The teaching goal is not to build a game — it is to let the student experience the Git workflow through **visible changes to a real webpage**: every commit they make corresponds to something they can see in the browser.
 
 ## Architecture
 
-- **`.claude/agents/`** — 7 AI agents that power the pipeline (init, turbo, coder, reviewer, docs-turbo, docs-deploy, docs-stage-prep)
-- **`docs/TEACHING.md`** — Universal teaching principles (simplicity, one concept per stage, naming)
-- **`docs/STANDARD.md`** — 8-file documentation standard per stage
-- **`docs/ROADMAP.md`** — Placeholder for the tutorial roadmap (YAML frontmatter + markdown)
-- **`docs/LEARNGEN.md`** — Full design document
-- **`docs-site/`** — VitePress scaffold (placeholder pages, theme, mermaid plugin)
-- **`.github/workflows/deploy-docs.yml`** — GitHub Pages auto-deploy
+At the end of the tutorial the project consists of only:
 
-## Key Files
+```
+box-runner/
+├── index.html   # the game start screen markup
+└── style.css    # the styling
+```
 
-| File | Role |
-|------|------|
-| `docs/TEACHING.md` | Teaching philosophy — all agents read this |
-| `docs/STANDARD.md` | Doc structure — defines the 8 files per stage |
-| `docs/ROADMAP.md` | Placeholder — `tutorial-init` generates the real one |
-| `docs/LEARNGEN.md` | Design doc — explains the full system |
+There is no server. The student opens `index.html` directly in a browser (double-click the file, or `open index.html` on macOS).
 
-## When Developing LearnGen
+**The interesting architecture is the Git history itself.** Each stage adds exactly one commit (or branch, or merge, or push) on top of the previous stage, so the `git log` _is_ the curriculum:
 
-- Agent prompts must be **stack-agnostic** — they read coding rules from `CLAUDE.md` (generated per-project), not hardcoded
-- All teaching principles go in `TEACHING.md`, not scattered across agent prompts
-- Test changes against the Fortune App (the reference implementation at `vedanta/fortune-app`)
-- The Fortune App repo has LearnGen as a submodule — develop there, sync here
+```
+stage 0  →  (no git)
+stage 1  →  commit: Created basic Box Runner start screen
+stage 2  →  commit: Added styling to the Box Runner screen
+stage 3  →  commit: Added scoreboard to the game screen
+stage 4  →  branch:  dark-theme
+stage 5  →  commit on dark-theme: Tried a dark theme for Box Runner
+stage 6  →  merge dark-theme into main
+stage 7  →  remote:  origin → github.com/<user>/box-runner
+stage 8  →  push main to origin
+stage 9  →  commit + push: Added high score display
+```
 
-## When Cloned as a Template
+## Development Commands
 
-`@tutorial-init` replaces this file with project-specific content:
-- Project overview and architecture
-- Tech stack details
-- Development commands
-- Coding standards for the chosen stack
+There is no dev server and no build. The Makefile only runs the docs site.
+
+```bash
+# View the webpage locally
+open index.html               # macOS
+xdg-open index.html           # Linux
+start index.html              # Windows
+
+# Run the tutorial docs site (VitePress)
+make docs                     # start docs dev server at localhost:5173
+make docs-build               # build static docs site
+
+# Typical Git commands the student will run each stage
+git status
+git add <file>
+git commit -m "message"
+git log --oneline
+git branch
+git checkout -b <branch>
+git checkout <branch>
+git merge <branch>
+git remote add origin <url>
+git push -u origin main
+```
+
+## Coding Standards
+
+Because the whole point is readability for absolute beginners, keep everything minimal.
+
+### HTML
+
+- Use HTML5 doctype: `<!DOCTYPE html>`.
+- No `<meta>` noise beyond what's strictly necessary in early stages. It's fine to start without `<meta charset>` and add it later if a stage introduces it explicitly.
+- Use semantic element names the student already recognizes: `h1`, `p`, `button`, `div`.
+- Two-space indentation. No trailing whitespace.
+- Wrap lines generously — never chain attributes to the point where a beginner has to scroll.
+- Class names are lowercase and descriptive: `scoreboard`, not `sb` or `scr`.
+- No JavaScript. No `<script>` tags. Ever.
+
+### CSS
+
+- Plain CSS only. No preprocessors, no CSS variables (too abstract for this level), no `@media` queries unless a stage explicitly teaches them.
+- One selector per rule block. Group related rules logically (body → headings → buttons → components).
+- Two-space indentation, one declaration per line, trailing semicolons.
+- Hex colors in lowercase: `#222222`, `#00ffcc`, `#f4f4f4`.
+- Prefer explicit values over shorthand when it makes the rule clearer for a beginner.
+
+### Git commit messages
+
+- Present tense, written as if describing what the _commit_ does: "Added scoreboard to the game screen", "Tried a dark theme for Box Runner".
+- One short sentence. No body. No emoji. No conventional-commits prefixes — beginners should see plain English.
+- Every commit should correspond to a visible change in the browser (or a specific Git concept, like creating a branch).
+
+### File changes per stage
+
+- **One concept per stage.** Never introduce branching and merging in the same stage. Never teach `git push` and `git remote` in the same commit.
+- **Every stage must leave a working, openable `index.html`.** No half-edited files.
+- **Visible first, Git second.** The student should _see_ the change in the browser before they run `git add`.
+
+### Docs (VitePress)
+
+- The tutorial docs live in `docs-site/`. Each stage gets 8 markdown files generated by `@tutorial-turbo`.
+- Walkthroughs should quote the actual file contents of that stage, line by line.
+- Avoid screenshots unless necessary — the webpage is simple enough that a 3-line description beats an image.
+
+## What This Project Is Not
+
+- Not a game engine tutorial
+- Not a JavaScript tutorial
+- Not a responsive-design or accessibility tutorial
+- Not a "build a portfolio site" tutorial
+
+It is a **Git and GitHub tutorial with a webpage as the prop**. If a design choice doesn't serve the goal of teaching Git, it doesn't belong here.
