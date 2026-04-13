@@ -1,41 +1,39 @@
-# Troubleshooting — Stage 2: Add Styling
+# Troubleshooting — Stage 3: Add the Scoreboard
 
 ## Common Errors
 
-### The page looks unstyled after reloading
+### The scoreboard panel stretches across the whole page
 
-**Cause:** The browser cannot find `style.css`. Either the filename is wrong, the `href` is wrong, or the file is in a different folder.
+**Cause:** A `<div>` defaults to `display: block`, which makes it take the full width. The CSS rule uses `display: inline-block` to fix this, so you probably forgot that line.
 
-**Fix:** Make sure `style.css` is in the same folder as `index.html` and the `<link>` tag says `href="style.css"` — no leading slash, no subfolder.
+**Fix:** Add `display: inline-block;` to the `.scoreboard` rule in `style.css`.
 
-### `git add .` complains "pathspec did not match"
+### The scoreboard styles do not apply
 
-**Cause:** You ran the command outside the `box-runner` folder.
+**Cause:** Usually a typo between `class="scoreboard"` in HTML and `.scoreboard` in CSS. They must match exactly, and CSS class selectors start with a `.` — the HTML does not.
 
-**Fix:** `cd box-runner` and try again.
+**Fix:** Compare the two. HTML: `class="scoreboard"`. CSS: `.scoreboard { }`.
 
-### The commit includes more files than I expected
+### `git log` shows too much output and fills the screen
 
-**Cause:** `git add .` grabs everything that changed in the current folder, including editor backup files or `.DS_Store` on macOS.
+**Cause:** `git log` is paged — it uses `less` under the hood.
 
-**Fix:** Run `git status` **before** `git add` to see what will be staged. If you see files you did not mean to commit, stage them individually: `git add index.html style.css`.
-
-### Browser still shows the old styles after editing `style.css`
-
-**Cause:** The browser cached the old stylesheet.
-
-**Fix:** Hard reload. On macOS: `Cmd+Shift+R`. On Windows/Linux: `Ctrl+Shift+R`.
+**Fix:** Press `q` to quit the pager. Or use `git log --oneline` for a shorter view. Or pipe: `git log --oneline | head`.
 
 ## FAQ
 
-### Why one commit instead of two?
+### Why is the scoreboard inside a div instead of just two paragraphs?
 
-Because the HTML edit and the new CSS file are part of the **same change** — "I added styling." A commit should represent a single logical change, not a single file. If you made two commits here you would have one broken commit ("linked a CSS file that does not exist") followed by one that fixes it.
+Because you want to style the score and lives as a **group** — one white panel with a border around both. A div gives you a single box to target with CSS.
 
-### Can I split a commit into two later if I want to?
+### What is the difference between a class and an id?
 
-Yes — with `git reset` and re-staging, or with interactive rebase. That is advanced territory. For now, stage carefully before committing.
+Classes can be reused — many elements can share `class="scoreboard"`. IDs must be unique — only one element per page can have `id="scoreboard"`. Classes use `.` in CSS; ids use `#`. Start with classes and only reach for ids when you truly have a one-of-a-kind element.
 
-### Why does `git add .` include `style.css` if it was never tracked?
+### Does `git log` show commits from other branches?
 
-`git add` means "stage for the next commit." It does not care whether the file was tracked before. New files become tracked the moment you stage them.
+By default, `git log` shows commits reachable from your current branch. To see all branches: `git log --all --oneline --graph`. That command will matter more starting in Stage 4.
+
+### Is the commit hash the same for everyone?
+
+No. Every commit hash depends on the contents, the author, the timestamp, and the parent. Your hashes will be different from anyone else's even if you follow the same steps.

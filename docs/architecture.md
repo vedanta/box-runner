@@ -1,4 +1,4 @@
-# Architecture — Stage 2: Add Styling
+# Architecture — Stage 3: Add the Scoreboard
 
 ## Current Structure
 
@@ -9,17 +9,18 @@ box-runner/
 └── style.css
 ```
 
-Two visible files now. The HTML loads the CSS with a `<link>` tag, so opening `index.html` automatically pulls in `style.css`.
+No new files. The `index.html` grew by four lines and `style.css` grew by one rule.
 
-## Data Flow
+## Git History
 
 ```mermaid
-flowchart LR
-  A[Browser opens index.html] --> B[Reads link tag]
-  B --> C[Loads style.css]
-  C --> D[Applies styles and renders the page]
+flowchart TD
+  A[Stage 1: Created basic Box Runner start screen] --> B[Stage 2: Added styling to the Box Runner screen]
+  B --> C[Stage 3: Added scoreboard to the game screen]
 ```
+
+Three commits in a straight line. Every new stage from here on will add exactly one node on top of this chain until you start branching in Stage 4.
 
 ## What Changed
 
-The project now has two visible files instead of one. From Git's perspective this stage shows something important: a single commit can include a **new** file (`style.css`) and a **modified** file (`index.html`) at the same time. You do not need a separate commit per file.
+The project gained its first reusable component pattern — a container `<div>` with a class name, plus a matching CSS rule. Nothing is reused yet, but the pattern is in place.

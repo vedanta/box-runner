@@ -1,11 +1,11 @@
 {
-  "number": 2,
-  "title": "Add Styling",
-  "branch": "stage-2-add-styling",
-  "tag": "v2-add-styling",
-  "previous": "stage-1-first-commit",
-  "concept": "tracking a new file and an edited file together",
-  "summary": "Create style.css, link it from index.html, and make one commit that covers both a new file and an edited file.",
+  "number": 3,
+  "title": "Add the Scoreboard",
+  "branch": "stage-3-scoreboard",
+  "tag": "v3-scoreboard",
+  "previous": "stage-2-add-styling",
+  "concept": "git log — seeing history",
+  "summary": "Add score and lives to the HTML and CSS, commit it, then use git log to walk through every save point so far.",
   "stack": {
     "frontend": {
       "html": "5",

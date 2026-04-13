@@ -1,87 +1,62 @@
-# Walkthrough — Stage 2: Add Styling
+# Walkthrough — Stage 3: Add the Scoreboard
 
-> Read the code first, then read the explanation.
+## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-3-scoreboard/index.html)
 
-## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-2-add-styling/style.css)
-
-### Lines 1–6: The body rule
-
-```css
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  text-align: center;
-  margin-top: 80px;
-}
-```
-
-**What's happening:**
-
-CSS rules target HTML elements. This rule targets `<body>`, which means it affects the entire visible page.
-
-- `font-family: Arial, sans-serif;` asks the browser to use Arial, and if Arial is not available, any sans-serif font.
-- `background-color: #f4f4f4;` sets a very light gray. Hex colors are `#rrggbb`, two digits per color channel.
-- `text-align: center;` centers all text inside the body.
-- `margin-top: 80px;` pushes the whole page down 80 pixels so it does not sit flush against the top of the browser.
-
-### Lines 8–10: The h1 rule
-
-```css
-h1 {
-  color: #333333;
-}
-```
-
-**What's happening:**
-
-Every `<h1>` in the body gets a dark charcoal color instead of pure black. Subtle, but nicer to read.
-
-### Lines 12–14: The p rule
-
-```css
-p {
-  color: #555555;
-}
-```
-
-**What's happening:**
-
-A lighter gray for paragraphs, to create a gentle contrast with the heading.
-
-### Lines 16–23: The button rule
-
-```css
-button {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-}
-```
-
-**What's happening:**
-
-This turns the default browser button into a clean green pill.
-
-- `background-color: #4caf50;` is a friendly mid-green.
-- `color: #ffffff;` makes the label white.
-- `border: none;` removes the default border.
-- `padding: 12px 24px;` adds space inside the button — 12 pixels top/bottom, 24 pixels left/right.
-- `font-size: 16px;` makes the label larger.
-- `cursor: pointer;` changes the mouse cursor to a hand when you hover, so the button feels clickable.
-
-## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-2-add-styling/index.html)
-
-### Line 5: Linking the stylesheet
+### Lines 11–14: The scoreboard div
 
 ```html
-    <link rel="stylesheet" href="style.css">
+    <div class="scoreboard">
+      <p>Score: 0</p>
+      <p>Lives: 3</p>
+    </div>
 ```
 
 **What's happening:**
 
-`<link>` tells the browser "go load this extra file and apply it to the page." `rel="stylesheet"` is the relationship — this file is a stylesheet. `href="style.css"` is the path — relative to the HTML file, so Git can see both files live in the same folder.
+A `<div>` is a generic container. You use it to group related pieces of content so you can style them together. This div holds two `<p>` tags — the score and the lives — and the `class="scoreboard"` attribute gives it a label that CSS can target.
 
-Without this one line, `style.css` would just sit on disk unused.
+The values "0" and "3" are just text. There is no game running, so nothing changes them yet. The point is to have a real, visible piece of the UI.
+
+## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-3-scoreboard/style.css)
+
+### Lines 25–31: The scoreboard rule
+
+```css
+.scoreboard {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
+```
+
+**What's happening:**
+
+The `.scoreboard` selector matches any element with `class="scoreboard"`. In CSS, a dot prefix means "class."
+
+- `margin-top: 40px;` pushes the panel down below the button so it does not crowd the button.
+- `display: inline-block;` lets the panel shrink to fit its content instead of stretching across the whole page.
+- `padding: 16px 32px;` gives breathing room inside the panel — 16 pixels top/bottom, 32 pixels left/right.
+- `background-color: #ffffff;` makes it stand out against the gray body background.
+- `border: 1px solid #dddddd;` draws a thin light gray outline.
+
+## Command: `git log`
+
+```bash
+git log
+```
+
+**What's happening:**
+
+`git log` prints every commit, newest first. For each commit you see the hash (a unique ID), the author, the date, and the message. The hash is what you would use to refer to a specific commit later — for example, `git show <hash>`.
+
+## Command: `git log --oneline`
+
+```bash
+git log --oneline
+```
+
+**What's happening:**
+
+Same history, one line per commit. The short hash plus the message. Once your project has twenty commits, `--oneline` is the only sane way to skim them.

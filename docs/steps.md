@@ -1,54 +1,23 @@
-# Steps — Stage 2: Add Styling
-
-> Every step is a file edit or a Git command run from inside `box-runner`.
+# Steps — Stage 3: Add the Scoreboard
 
 ## Prerequisites
 
-Completed Stage 1. `git log --oneline` shows one commit.
+Completed Stage 2. Running `git log --oneline` shows two commits.
 
 ## Steps
 
-### 1. Create `style.css`
+### 1. Edit `index.html` to add the scoreboard
 
-Inside the `box-runner` folder, create a new file called `style.css`:
-
-```css
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  text-align: center;
-  margin-top: 80px;
-}
-
-h1 {
-  color: #333333;
-}
-
-p {
-  color: #555555;
-}
-
-button {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-}
-```
-
-This centers the page, sets a light background, and gives the button a clean look.
-
-### 2. Edit `index.html` to link the stylesheet
-
-Add one line inside `<head>`, right after the `<title>` line:
+Add a new `<div>` right after the button, before the closing `</body>` tag:
 
 ```html
-    <link rel="stylesheet" href="style.css">
+    <div class="scoreboard">
+      <p>Score: 0</p>
+      <p>Lives: 3</p>
+    </div>
 ```
 
-The complete `index.html` now looks like this:
+The complete `index.html`:
 
 ```html
 <!DOCTYPE html>
@@ -61,43 +30,59 @@ The complete `index.html` now looks like this:
     <h1>Box Runner</h1>
     <p>Press Start to begin your adventure.</p>
     <button>Start Game</button>
+    <div class="scoreboard">
+      <p>Score: 0</p>
+      <p>Lives: 3</p>
+    </div>
   </body>
 </html>
 ```
 
-### 3. Reload the page in your browser
+### 2. Edit `style.css` to style the scoreboard
 
-You should see the new gray background, centered layout, and green button. Do this **before** committing — the visible change is the reason you are committing.
+Add this new rule at the bottom of `style.css`:
 
-### 4. Check the status
-
-```bash
-git status
+```css
+.scoreboard {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
 ```
 
-You will see two different things:
+The dot in `.scoreboard` means "apply this rule to any element with `class="scoreboard"`."
 
-- `style.css` under **Untracked files** — Git has never seen it before.
-- `index.html` under **Changes not staged for commit** — Git knows this file, and it has been edited.
+### 3. Reload the page
 
-### 5. Stage both files
+You should see a small white panel below the button showing **Score: 0** and **Lives: 3**.
+
+### 4. Stage and commit
 
 ```bash
 git add .
+git commit -m "Added scoreboard to the game screen"
 ```
 
-The `.` means "everything changed in the current folder." Both `style.css` and `index.html` are now staged.
-
-### 6. Commit the save point
+### 5. Read your history
 
 ```bash
-git commit -m "Added styling to the Box Runner screen"
+git log
 ```
 
-One commit, two files.
+You see three entries, newest first. Each has a hash, an author, a date, and a message.
+
+Try the compact view too:
+
+```bash
+git log --oneline
+```
+
+Three lines. Three save points.
 
 ## Verify
 
-- `git log --oneline` shows two commits.
-- `git status` prints clean.
-- Reloading the browser still shows the styled page.
+- The browser shows a scoreboard panel.
+- `git log --oneline` lists three commits.
+- `git status` is clean.

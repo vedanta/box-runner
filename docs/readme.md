@@ -1,29 +1,23 @@
-# Stage 2 — Add Styling
+# Stage 3 — Add the Scoreboard
 
-> Style the game screen with CSS and save the new file plus the edited HTML in a single commit.
+> Add a small score and lives panel, save it, then look back at your history with `git log`.
 
 ## What You'll Learn
 
-- How to link a CSS file from an HTML file
-- That one commit can contain both a new file and an edited file
-- How `git status` tells the difference between **untracked** and **modified**
+- How to add a new section to an HTML page using a `<div>` and a class
+- How to style a class in CSS
+- How to read your Git history with `git log` and `git log --oneline`
 
 ## Prerequisites
 
-You finished [Stage 1](../stage-1-first-commit/readme.md). Running `git log --oneline` in your `box-runner` folder shows one commit.
+You finished [Stage 2](../stage-2-add-styling/readme.md). `git log --oneline` shows two commits.
 
 ## What Changes
 
-- `style.css` is added. It centers the page, gives it a soft gray background, and styles the button.
-- `index.html` is edited to `<link>` the new stylesheet.
-- One commit records both changes together.
+- `index.html` gets a new `<div class="scoreboard">` with "Score: 0" and "Lives: 3".
+- `style.css` gets a new rule for `.scoreboard` so the panel stands out visually.
+- One commit saves both edits.
 
 ## Outcome
 
-Open `index.html`. The page now has:
-
-- A light gray background
-- Centered content with a bit of space at the top
-- A friendlier green button
-
-`git log --oneline` shows two commits. `git status` is clean.
+The page now shows a small white box below the Start Game button with the score and lives. `git log --oneline` shows **three** commits — the full history of your project so far.

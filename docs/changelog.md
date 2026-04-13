@@ -1,16 +1,16 @@
-# Changelog — Stage 2: Add Styling
+# Changelog — Stage 3: Add the Scoreboard
 
 ## Previous Stage
 
-Stage 1: First Save Point (branch: `stage-1-first-commit`)
+Stage 2: Add Styling (branch: `stage-2-add-styling`)
 
 ## Files Changed
 
 | File | Change | What and Why |
 |------|--------|--------------|
-| `style.css` | added | Holds the page styling. New file — Git will see it as **untracked** until you `git add` it. |
-| `index.html` | modified | Adds a single `<link>` tag so the browser loads `style.css`. Git will see this as **modified**. |
+| `index.html` | modified | Adds a `<div class="scoreboard">` with two `<p>` tags (score and lives). |
+| `style.css` | modified | Adds a `.scoreboard` rule that gives the panel a white background, border, and spacing. |
 
 ## Summary
 
-This stage adds the first CSS file to the project and links it from the HTML. The two changes go into a single commit so you can see that `git add` and `git commit` can bundle a brand-new file and an edit to an existing file into one save point.
+This stage adds the scoreboard panel to the game screen and then pauses to look back. You use `git log` to see every save point so far. The point is not the CSS — it is the feeling of reading your own history.

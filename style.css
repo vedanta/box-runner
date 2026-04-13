@@ -21,3 +21,11 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+.scoreboard {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
