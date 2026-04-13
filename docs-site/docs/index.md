@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Start the Tutorial
-      link: /box-runner/overview
+      link: /overview
     - theme: alt
       text: View on GitHub
       link: https://github.com/vedanta/box-runner
