@@ -1,48 +1,88 @@
-# Walkthrough — Stage 4: Try a Branch
+# Walkthrough — Stage 5: Experiment on the Branch
 
-> No code changes. The walkthrough explains the two Git commands you ran.
+## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-5-dark-theme/style.css)
 
-## Command: `git branch`
+### Lines 1–7: Dark body
 
-```bash
-git branch
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #222222;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 80px;
+}
 ```
 
 **What's happening:**
 
-`git branch` with no arguments lists every branch in your local repository. It also marks your current branch with an asterisk (`*`). Think of it as "where am I?" for Git.
+The background flips from `#f4f4f4` (light gray) to `#222222` (dark charcoal). A new line, `color: #ffffff;`, sets the default text color to white so everything inside the body is legible on the dark background without being re-declared per element.
 
-Before Stage 4, there is only `main`. After Stage 4, there is `main` and `dark-theme`.
+### Lines 9–11: Teal heading
 
-## Command: `git checkout -b dark-theme`
-
-```bash
-git checkout -b dark-theme
+```css
+h1 {
+  color: #00ffcc;
+}
 ```
 
 **What's happening:**
 
-`git checkout -b <name>` is a two-for-one:
+`#00ffcc` is a bright teal. On a dark background it almost glows — exactly the look you want for a game title.
 
-1. `git branch <name>` — create a branch called `<name>` pointing at the current commit.
-2. `git checkout <name>` — switch to that branch so future commits land on it.
+### Lines 13–15: Softer paragraph text
 
-The `-b` flag is what adds the "create" step. Without `-b`, `git checkout` assumes the branch already exists.
-
-## The mental model
-
-A branch is a **label that moves**. It is not a folder, not a copy of your files, not a second version of the project on disk.
-
-Right now, both `main` and `dark-theme` point at the same commit — the Stage 3 "Added scoreboard to the game screen" save point. When you make a new commit from `dark-theme`, that new commit becomes the latest on `dark-theme`, but `main` stays where it was.
-
-That is why the files on disk do not change when you create a branch. There is nothing new yet. You just planted a second flag on the same hill.
-
-## Command: `git status` (sanity check)
-
-```bash
-git status
+```css
+p {
+  color: #cccccc;
+}
 ```
 
 **What's happening:**
 
-Running `git status` after creating a branch is a useful habit. It should say `nothing to commit, working tree clean` — confirming that branching did not modify any files.
+The body color is pure white, but paragraphs get a slightly dimmed `#cccccc` so the heading stands out as more prominent than the supporting text.
+
+### Lines 17–24: Teal button
+
+```css
+button {
+  background-color: #00ffcc;
+  color: #222222;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+```
+
+**What's happening:**
+
+The button swaps colors — teal background with dark text. The padding and cursor rules are identical to Stage 2 because those are layout, not theme.
+
+### Lines 26–32: Dark scoreboard panel
+
+```css
+.scoreboard {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 16px 32px;
+  background-color: #333333;
+  border: 1px solid #00ffcc;
+}
+```
+
+**What's happening:**
+
+The scoreboard keeps its layout (`margin-top`, `display`, `padding`) and only changes its theme. The background goes slightly lighter than the body (`#333333`) so the panel pops against the page, and the border turns teal to match the accent.
+
+## Command: `git commit -m "Tried a dark theme for Box Runner"`
+
+```bash
+git commit -m "Tried a dark theme for Box Runner"
+```
+
+**What's happening:**
+
+This is a normal commit — there is nothing special about the syntax. What matters is **where** this commit lands. Because `HEAD` points at `dark-theme`, the new commit becomes the tip of the `dark-theme` branch. `main` does not move at all.
+
+Branch labels update only when you commit **while standing on them**.

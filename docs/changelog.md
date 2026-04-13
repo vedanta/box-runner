@@ -1,17 +1,15 @@
-# Changelog — Stage 4: Try a Branch
+# Changelog — Stage 5: Experiment on the Branch
 
 ## Previous Stage
 
-Stage 3: Add the Scoreboard (branch: `stage-3-scoreboard`)
+Stage 4: Try a Branch (branch: `stage-4-create-branch`)
 
 ## Files Changed
 
-No project files changed. No new commit.
-
-| Change | What and Why |
-|--------|--------------|
-| Branch created: `dark-theme` | A second branch exists in the repository. You are now standing on it. |
+| File | Change | What and Why |
+|------|--------|--------------|
+| `style.css` | modified | Every color swapped for a dark theme: `#222222` background, `#00ffcc` teal accents, dark scoreboard panel. |
 
 ## Summary
 
-Stage 4 is deliberately quiet. You run one Git command and end up on a new branch with nothing different in your folder. This is normal and on purpose. Branches only start to show their value once you commit something on them, which happens in Stage 5.
+This is the first commit that lives on a non-main branch. The dark theme only exists on `dark-theme`. When you switch back to `main`, the old light theme is still there. This is the whole reason branches exist — safe, isolated experiments.

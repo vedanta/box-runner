@@ -1,4 +1,4 @@
-# Architecture — Stage 4: Try a Branch
+# Architecture — Stage 5: Experiment on the Branch
 
 ## Current Structure
 
@@ -6,10 +6,10 @@
 box-runner/
 ├── .git/
 ├── index.html
-└── style.css
+└── style.css    (dark theme on dark-theme branch, light theme on main)
 ```
 
-Same as Stage 3. No file added or removed.
+Note that the **file on disk depends on which branch you are on**. Git swaps the file contents when you switch branches.
 
 ## Git History
 
@@ -17,12 +17,12 @@ Same as Stage 3. No file added or removed.
 flowchart TD
   A[Commit 1: Created basic Box Runner start screen] --> B[Commit 2: Added styling]
   B --> C[Commit 3: Added scoreboard]
+  C --> D[Commit 4: Tried a dark theme - dark-theme HEAD]
   C --> M[main]
-  C --> D[dark-theme - HEAD]
 ```
 
-Both branch labels — `main` and `dark-theme` — point at the same commit. `HEAD` is Git's way of saying "which branch are you on right now?" It points at `dark-theme`.
+The history now has a fork. `main` stayed at Commit 3. `dark-theme` advanced to Commit 4. They share the first three commits but diverge from there.
 
 ## What Changed
 
-No files, no commits. The only change is that a second branch label exists in `.git/refs/heads/`. If you opened `.git/refs/heads/dark-theme` in a text editor, you would see the same commit hash that is in `.git/refs/heads/main`.
+This stage demonstrates the core value of a branch. Nothing about your folder structure changed — you still have two files. What changed is that the project now has two visible versions at the same time, selected by which branch you check out.

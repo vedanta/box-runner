@@ -1,39 +1,53 @@
-# Troubleshooting — Stage 4: Try a Branch
+# Troubleshooting — Stage 5: Experiment on the Branch
 
 ## Common Errors
 
-### `fatal: A branch named 'dark-theme' already exists`
+### The dark theme appeared on `main` instead of `dark-theme`
 
-**Cause:** You already created the branch (maybe in an earlier attempt) and are trying to create it again.
+**Cause:** You edited and committed while standing on the wrong branch. Easy mistake — always check `git branch` before committing.
 
-**Fix:** Just switch to it: `git checkout dark-theme`. Or delete and recreate: `git branch -D dark-theme && git checkout -b dark-theme`.
+**Fix:** Hardest fix of this tutorial, but still short. On `main`:
 
-### `error: Your local changes to the following files would be overwritten by checkout`
+```bash
+git reset --hard HEAD~1   # removes the wrong commit from main
+```
 
-**Cause:** You have uncommitted changes and Git is protecting them. Switching branches could destroy those changes.
+Then switch and redo:
 
-**Fix:** Either commit the changes first (`git add . && git commit -m "..."`) or temporarily stash them (`git stash`). You can restore stashed changes later with `git stash pop`.
+```bash
+git checkout dark-theme
+```
 
-### I created the branch on the wrong commit
+Edit `style.css`, commit. Before committing, double-check `git branch`.
 
-**Cause:** You ran `git checkout -b dark-theme` before finishing Stage 3, so the new branch is rooted somewhere earlier in the history.
+### `git commit` says "nothing to commit"
 
-**Fix:** Delete and recreate: `git checkout main`, `git branch -D dark-theme`, then make sure `git log --oneline` on `main` shows all three commits. Now run `git checkout -b dark-theme`.
+**Cause:** You did not save your file after editing, or you edited a different file than `style.css`.
+
+**Fix:** Save the file in your editor, run `git status` to confirm `style.css` is listed under changes, then `git add style.css` and commit again.
+
+### Switching back to `main` shows the dark theme
+
+**Cause:** Either you did not commit on `dark-theme` first (so the change is "floating" and follows you), or you accidentally committed on `main`.
+
+**Fix:** Run `git log --oneline` on each branch. `main` should have three commits, `dark-theme` four. If not, see the first error above.
+
+### The teal color looks off
+
+**Cause:** Hex colors are strict: `#00ffcc` is six characters after the `#`, and zero is the digit, not the letter O.
+
+**Fix:** Copy the color directly from `steps.md`. No typing.
 
 ## FAQ
 
-### Do I have to name it `dark-theme`?
+### Why does rewriting the whole file feel different from adding a few rules?
 
-For this tutorial, yes — so the rest of the instructions make sense. In real projects, branch names follow your team's convention. Common patterns are `feature/foo`, `fix/bar`, or just a short word.
+Because this is an experiment. A dark theme is a theme change, not a layering on top of the light theme. Rewriting makes the intent clear and the diff readable.
 
-### Is there a difference between `git checkout -b` and `git switch -c`?
+### Can I keep both themes at the same time?
 
-No, they do the same thing for creating and switching to a branch. `git switch` is a newer command introduced to separate "switch branches" from the many other things `git checkout` can do. Both work.
+Not in one file without extra tools. You could add a second CSS file, or use CSS classes on the body. Those are both valid approaches and would make a good follow-up project — but they are beyond this Git-focused tutorial.
 
-### Can two people have branches with the same name?
+### Is it okay to commit many small experiments on a branch?
 
-Yes — branches are local until you push them. We cover pushing in Stage 8. For now, your `dark-theme` lives only on your computer.
-
-### Why does the tutorial check out a branch if nothing changes?
-
-Because the concept is subtle. If you immediately made a visible change, you would conflate "creating a branch" with "committing on a branch." Splitting them into two stages makes each idea stand on its own.
+Yes. Branches are cheap. Commit often, try wild things, and throw away the whole branch (`git branch -D dark-theme`) if you hate the result. You lose nothing on `main`.

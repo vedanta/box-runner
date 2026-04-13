@@ -1,11 +1,11 @@
 {
-  "number": 4,
-  "title": "Try a Branch",
-  "branch": "stage-4-create-branch",
-  "tag": "v4-create-branch",
-  "previous": "stage-3-scoreboard",
-  "concept": "git branch / checkout -b",
-  "summary": "Create a dark-theme branch. Nothing visually changes yet — the point is understanding what a branch is.",
+  "number": 5,
+  "title": "Experiment on the Branch",
+  "branch": "stage-5-dark-theme",
+  "tag": "v5-dark-theme",
+  "previous": "stage-4-create-branch",
+  "concept": "committing on a non-main branch",
+  "summary": "Rewrite style.css with a dark background on the dark-theme branch, then commit. Main stays untouched.",
   "stack": {
     "frontend": {
       "html": "5",

@@ -1,25 +1,24 @@
-# Stage 4 — Try a Branch
+# Stage 5 — Experiment on the Branch
 
-> Create a new branch called `dark-theme`. No files change yet — the lesson is what a branch actually is.
+> Rewrite `style.css` with a dark theme while standing on the `dark-theme` branch. Commit. Watch `main` stay exactly the way it was.
 
 ## What You'll Learn
 
-- What a branch is (a movable label, not a copy of files)
-- `git branch` — list branches and see which one you are on
-- `git checkout -b <name>` — create and switch to a new branch
+- How commits attach to the branch you are currently on
+- That `main` is untouched while you experiment on another branch
+- How to switch branches and see a completely different version of your files
 
 ## Prerequisites
 
-You finished [Stage 3](../stage-3-scoreboard/readme.md). Running `git log --oneline` shows three commits, all on `main`.
+You finished [Stage 4](../stage-4-create-branch/readme.md). `git branch` shows `main` and `* dark-theme`.
 
 ## What Changes
 
-The project files do **not** change. No HTML edit, no CSS edit, no new file, no new commit. You create a new branch and switch to it.
+- `style.css` is rewritten with dark colors and teal accents.
+- One new commit is added — but only on the `dark-theme` branch. The `main` branch is untouched.
 
 ## Outcome
 
-- `git branch` lists two branches: `main` and `dark-theme`.
-- The asterisk in the output points to `dark-theme` — that is your current branch.
-- The webpage looks exactly the same.
-
-This is the stage where the mental model matters more than the result. A branch is not a copy of your project — it is a label that marks your place in the history.
+- On `dark-theme`: the page has a charcoal background, teal heading and button, and a dark scoreboard panel with a teal border.
+- On `main`: the page still has the light gray background from Stage 3. No changes.
+- `git log --oneline` on `dark-theme` shows four commits. On `main`, still three.
