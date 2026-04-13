@@ -1,42 +1,47 @@
-# Exercises — Stage 8: Push to GitHub
+# Exercises — Stage 9: Edit, Commit, Push Again
 
-## Exercise 1: Browse your commits on GitHub
+## Exercise 1: Run the loop again
 
-**Goal:** Get comfortable reading history in the GitHub UI.
-
-**Steps:**
-1. Go to your repo page on GitHub.
-2. Click the **commits** link (usually shows "4 commits" near the top).
-3. Click any commit to see the diff for that save point.
-
-**What happened:** GitHub's commit view is the web version of `git show <hash>`. Every commit message you typed in Stages 1–5 is visible here, in order.
-
-## Exercise 2: View a specific file at a specific commit
-
-**Goal:** Learn to jump through history on GitHub.
+**Goal:** Feel how quick the loop becomes once you know it.
 
 **Steps:**
-1. On the commits page, click the commit titled "Added scoreboard to the game screen."
-2. Click the `style.css` link in that commit.
-3. Notice you are seeing `style.css` as it looked at that commit — **before** the dark theme.
+1. Change the tagline in `index.html` from "Press Start to begin your adventure." to "Press Start. Dodge the boxes.".
+2. `git add index.html`.
+3. `git commit -m "Updated tagline"`.
+4. `git push`.
+5. Refresh GitHub.
 
-**What happened:** GitHub lets you browse any file at any point in history. This is the online version of `git show <hash>:style.css`.
+**What happened:** One short loop. No new commands. This is everyday Git.
 
-## Exercise 3: Run `git push` with no arguments
+## Exercise 2: Commit multiple small changes in a row
 
-**Goal:** Confirm that `-u` set up tracking.
-
-**Steps:**
-1. Run `git push`.
-
-**What happened:** You see "Everything up-to-date." Because `-u` linked `main` to `origin/main`, Git now knows exactly where to push with no arguments.
-
-## Exercise 4: Look at the remote tracking branch
-
-**Goal:** Understand `origin/main`.
+**Goal:** Practice making many small commits.
 
 **Steps:**
-1. Run `git branch -r`.
-2. Run `git log --oneline origin/main`.
+1. Change the High Score value to 250. Commit and push.
+2. Change the Lives to 5. Commit and push.
+3. Run `git log --oneline` — you see each change as a separate save point.
 
-**What happened:** `git branch -r` lists **remote-tracking branches** — your local copy of what the remote looks like. `origin/main` is your cached snapshot of the `main` branch on GitHub. It updates when you push or fetch.
+**What happened:** Small, focused commits are good. Each commit describes one change. Future you can revert any single step without losing the others.
+
+## Exercise 3: Edit directly on GitHub
+
+**Goal:** See that GitHub can also commit for you.
+
+**Steps:**
+1. On github.com, open `index.html` in your repo.
+2. Click the pencil icon (edit).
+3. Change the `<h1>` text.
+4. Scroll down, write a commit message, click **Commit changes**.
+5. Back in your terminal, run `git pull`. Your local repo updates.
+
+**What happened:** GitHub's web editor makes its own commit on your remote `main`. `git pull` fetches remote commits and merges them into your local branch. Edits can go either way — local-then-push, or remote-then-pull.
+
+## Exercise 4: Look at the reflog
+
+**Goal:** See Git's internal log of everything you did.
+
+**Steps:**
+1. Run `git reflog`.
+
+**What happened:** Every commit, checkout, reset, and merge you did is logged here. The reflog is your safety net — even if you accidentally delete something, you can usually find it in `git reflog` and recover.

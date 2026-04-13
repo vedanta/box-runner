@@ -1,18 +1,15 @@
-# Changelog — Stage 8: Push to GitHub
+# Changelog — Stage 9: Edit, Commit, Push Again
 
 ## Previous Stage
 
-Stage 7: Connect to GitHub (branch: `stage-7-remote`)
+Stage 8: Push to GitHub (branch: `stage-8-push`)
 
 ## Files Changed
 
-No project files changed.
-
-| Change | What and Why |
-|--------|--------------|
-| GitHub repo populated | All four local commits uploaded to `origin/main`. |
-| `.git/config` gains `branch.main.remote = origin` | Set up by the `-u` flag so future `git push` calls know where to go. |
+| File | Change | What and Why |
+|------|--------|--------------|
+| `index.html` | modified | Adds a single `<p>High Score: 120</p>` inside the scoreboard div. |
 
 ## Summary
 
-A single command uploads your entire history to GitHub: `git push -u origin main`. After this, the project (and every save point that got it there) is visible online.
+One file, one line, one commit, one push. This is the whole point — the tutorial ends by making the daily Git workflow feel completely routine. You can do this loop as often as you like from now on.

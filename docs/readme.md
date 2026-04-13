@@ -1,23 +1,27 @@
-# Stage 8 — Push to GitHub
+# Stage 9 — Edit, Commit, Push Again
 
-> Upload every commit in your local `main` branch to GitHub in one command.
+> Add one line to the scoreboard, commit, and push. This is the loop you will use forever.
 
 ## What You'll Learn
 
-- `git push -u origin main`
-- What the `-u` flag does (sets upstream tracking)
-- How to verify a push worked by reloading the GitHub page
+- The everyday Git loop: **edit → add → commit → push**
+- How fast subsequent pushes are once tracking is set up
+- How a new commit appears on GitHub within seconds
 
 ## Prerequisites
 
-You finished [Stage 7](../stage-7-remote/readme.md). `git remote -v` shows `origin` pointing at your GitHub repo, and the GitHub page still shows an empty repository.
+You finished [Stage 8](../stage-8-push/readme.md). Your GitHub repo shows four commits and the dark-theme page.
 
 ## What Changes
 
-No local files change. What changes is **GitHub** — your four commits appear online.
+- `index.html` gains one line inside the scoreboard: `<p>High Score: 120</p>`.
+- One new commit is created.
+- That commit is pushed to GitHub.
 
 ## Outcome
 
-- The GitHub repo page now shows `index.html` and `style.css` with the dark theme.
-- The "commits" link in the GitHub UI shows all four save points.
-- Running `git push` by itself (no arguments) in the future will push to `origin/main`, because `-u` set up tracking.
+- The page shows **Score: 0 / Lives: 3 / High Score: 120** in the scoreboard.
+- `git log --oneline` on `main` shows five commits.
+- GitHub shows five commits on `main`.
+
+This is the rhythm of real-world Git work.

@@ -1,62 +1,64 @@
-# Steps — Stage 8: Push to GitHub
+# Steps — Stage 9: Edit, Commit, Push Again
 
 ## Prerequisites
 
-Completed Stage 7. `git remote -v` shows `origin`. The GitHub page for `box-runner` is still empty.
+Completed Stage 8. Your GitHub repo has four commits. You are on `main`.
 
 ## Steps
 
-### 1. Check what branch you are on
+### 1. Edit `index.html`
+
+Inside the `<div class="scoreboard">`, add a third paragraph **after** the Lives line:
+
+```html
+      <p>High Score: 120</p>
+```
+
+The full scoreboard now looks like this:
+
+```html
+    <div class="scoreboard">
+      <p>Score: 0</p>
+      <p>Lives: 3</p>
+      <p>High Score: 120</p>
+    </div>
+```
+
+### 2. Reload the page
+
+The scoreboard now shows three lines instead of two. Confirm the visible change before you commit.
+
+### 3. Stage, commit, push
 
 ```bash
-git branch
-```
-
-The asterisk must be on `main`. If not, run `git checkout main`.
-
-### 2. Push to GitHub
-
-```bash
-git push -u origin main
-```
-
-- `git push` — the action: upload commits.
-- `-u` — short for `--set-upstream`. Tells Git "remember that my `main` tracks `origin/main` from now on."
-- `origin` — the remote to push to.
-- `main` — the branch to push.
-
-The first time you push, GitHub will ask you to authenticate. See the walkthrough for notes on personal access tokens.
-
-You should see output ending with something like:
-
-```
-To https://github.com/<your-username>/box-runner.git
- * [new branch]      main -> main
-branch 'main' set up to track 'origin/main'.
-```
-
-### 3. Refresh the GitHub page
-
-Go to `https://github.com/<your-username>/box-runner` in your browser and reload.
-
-Now the repo shows:
-
-- `index.html` and `style.css` in the file list
-- A "4 commits" link near the top
-- The contents of `index.html` rendered as raw HTML in the preview
-
-Click the commits link. You see all four save points in order, with the exact messages you wrote.
-
-### 4. Try a plain `git push`
-
-```bash
+git add index.html
+git commit -m "Added high score display"
 git push
 ```
 
-Because `-u` set up tracking, this works with no arguments now. Git responds with "Everything up-to-date." You do not need to repeat `-u origin main` — that was a one-time setup.
+Notice `git push` has no arguments. Because Stage 8 used `-u`, Git already knows where to send this commit.
+
+### 4. Refresh GitHub
+
+Reload your repo page on github.com. The new commit appears:
+
+- The commits count went from 4 to 5.
+- The top commit in the list is **Added high score display**.
+- Viewing `index.html` on GitHub shows the new `<p>High Score: 120</p>` line.
 
 ## Verify
 
-- GitHub page shows your files.
-- Commits page shows four entries.
-- Running `git push` by itself responds "Everything up-to-date."
+- The local browser shows three scoreboard lines.
+- `git log --oneline` shows five commits.
+- GitHub shows five commits and the latest `index.html` content.
+
+## The loop, one more time
+
+You just did the everyday Git loop:
+
+1. **Edit** a file to make a visible change.
+2. **`git add`** to stage the change.
+3. **`git commit -m "..."`** to create a save point.
+4. **`git push`** to share it.
+
+That is it. That is the job. Everything else (branches, merges, remotes) is support for this core rhythm.

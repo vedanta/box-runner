@@ -1,11 +1,11 @@
 {
-  "number": 8,
-  "title": "Push to GitHub",
-  "branch": "stage-8-push",
-  "tag": "v8-push",
-  "previous": "stage-7-remote",
-  "concept": "git push -u origin main",
-  "summary": "Upload every commit so far to GitHub. The webpage and its full history are now online.",
+  "number": 9,
+  "title": "Edit, Commit, Push Again",
+  "branch": "stage-9-next-change",
+  "tag": "v9-next-change",
+  "previous": "stage-8-push",
+  "concept": "the everyday git loop",
+  "summary": "Add a small high-score line, commit, and push. This cements the everyday edit to commit to push workflow.",
   "stack": {
     "frontend": {
       "html": "5",

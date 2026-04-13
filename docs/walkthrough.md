@@ -1,63 +1,59 @@
-# Walkthrough — Stage 8: Push to GitHub
+# Walkthrough — Stage 9: Edit, Commit, Push Again
 
-## Command: `git push -u origin main`
+## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-9-next-change/index.html)
 
-```bash
-git push -u origin main
+### Line 13: New scoreboard row
+
+```html
+      <p>High Score: 120</p>
 ```
 
 **What's happening:**
 
-Four tokens, each with a job:
+One more `<p>` inside the scoreboard div. It inherits the same styles as the existing lines because it is the same element type inside the same container. No CSS change is needed — the `.scoreboard` padding and background already account for extra rows.
 
-- **`git push`** — the command. It uploads commits from your local branch to a remote branch.
-- **`-u`** — the "set upstream" flag. It tells Git to remember a default mapping between your local `main` and the remote's `main` on `origin`. After this one-time flag, you can just run `git push` or `git pull` with no arguments.
-- **`origin`** — the remote to push to. This is the name you gave in Stage 7 when you ran `git remote add origin ...`.
-- **`main`** — the local branch to push. You are pushing your `main` to the remote's `main`.
+The value `120` is hardcoded. A real game would track this in JavaScript and update it when the player beat their record, but this tutorial never adds JavaScript, so 120 is fine.
 
-Everything you have ever committed to `main` now exists on GitHub.
+## Command: `git add index.html`
 
-## What the `-u` flag actually does
-
-Without `-u`, Git has no default for `git push` or `git pull` on this branch — you would have to type the remote and branch every time. With `-u`, Git writes a small block to `.git/config`:
-
-```
-[branch "main"]
-    remote = origin
-    merge = refs/heads/main
+```bash
+git add index.html
 ```
 
-From then on, Git knows that `main` is linked to `origin/main`. You only set this up once per branch, the first time you push it.
+**What's happening:**
 
-## Authentication on the first push
+Same as Stage 2 — stage one file for the next commit. Nothing new, and that is the point. You are repeating the everyday flow.
 
-The first `git push` on a new machine triggers an authentication prompt. Modern GitHub does not accept account passwords over HTTPS — you need a **personal access token** (PAT).
+## Command: `git commit -m "Added high score display"`
 
-**How to create one:**
-
-1. On github.com, go to **Settings → Developer settings → Personal access tokens → Tokens (classic)**.
-2. Click **Generate new token (classic)**.
-3. Give it a name like "box-runner tutorial."
-4. Check the **repo** scope.
-5. Generate and copy the token (it starts with `ghp_`).
-6. When Git asks for your password during push, paste the token.
-
-Your operating system's credential helper usually caches the token, so you only do this once.
-
-## Reading the push output
-
-A successful push prints something like:
-
-```
-Enumerating objects: 12, done.
-Counting objects: 100% (12/12), done.
-...
-To https://github.com/<your-username>/box-runner.git
- * [new branch]      main -> main
-branch 'main' set up to track 'origin/main'.
+```bash
+git commit -m "Added high score display"
 ```
 
-The last two lines are the important ones:
+**What's happening:**
 
-- `[new branch] main -> main` — a brand-new branch was created on the remote.
-- `branch 'main' set up to track 'origin/main'` — the `-u` flag did its job.
+A one-line commit message that describes the change. Short, present-state, no ceremony.
+
+## Command: `git push`
+
+```bash
+git push
+```
+
+**What's happening:**
+
+No `-u`, no `origin`, no `main`. Git figured out all three from the tracking set up in Stage 8. That is what `-u` bought you — simpler commands forever after.
+
+The push sends only the new commit to GitHub. The four earlier commits are already there, so Git does not re-upload them.
+
+## The everyday Git loop
+
+What you just did is the default rhythm of working on any Git project:
+
+1. Edit a file.
+2. Run `git status` (habit — always know what is changed).
+3. `git add <file>`.
+4. `git commit -m "<what you changed>"`.
+5. `git push`.
+
+Branches, merges, and remotes are support structures for this core loop. You do not need to learn anything new to keep using Git — you just repeat this cycle as many times as you want.

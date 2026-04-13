@@ -1,45 +1,49 @@
-# Troubleshooting — Stage 8: Push to GitHub
+# Troubleshooting — Stage 9: Edit, Commit, Push Again
 
 ## Common Errors
 
-### `fatal: Authentication failed`
+### `error: failed to push some refs`
 
-**Cause:** You typed your GitHub account password instead of a personal access token.
+**Cause:** Someone (or some process, or you via the GitHub web editor) added a commit to `origin/main` that you do not have locally.
 
-**Fix:** Create a PAT as described in the walkthrough and use it as the password. On macOS, you can store it in Keychain so you only enter it once.
+**Fix:** Run `git pull` first, resolve any conflicts if they come up, then `git push`. This is why teams pull before they push.
 
-### `error: failed to push some refs ... Updates were rejected because the remote contains work that you do not have locally`
+### The new line is not visible after reload
 
-**Cause:** The GitHub repo is not empty. Usually because you checked "Add README" when creating the repo.
+**Cause:** Browser cache, or the HTML was added outside the `<div class="scoreboard">` and got styled differently.
 
-**Fix:** Easiest path — delete the GitHub repo and recreate it empty. Or pull first: `git pull origin main --allow-unrelated-histories`, resolve the merge, then push.
+**Fix:** Hard reload (`Cmd+Shift+R` / `Ctrl+Shift+R`). Check that the new `<p>High Score: 120</p>` sits between the Lives line and the closing `</div>`.
 
-### `fatal: The current branch main has no upstream branch`
+### `git push` asks for authentication again
 
-**Cause:** You ran `git push` without `-u origin main` the first time, and tracking was never set up.
+**Cause:** Your credential helper did not cache the personal access token, or it expired.
 
-**Fix:** Run `git push -u origin main` once. After that, `git push` alone will work.
+**Fix:** Paste the token again when asked. On macOS, check Keychain for an old "github.com" entry — deleting it lets you save a fresh one.
 
-### `Repository not found`
+### `nothing to commit` when I expected a commit
 
-**Cause:** Typo in the remote URL, or the repo is private and you are not authenticated as the owner.
+**Cause:** You edited the file but did not save it, or you saved it with no real change.
 
-**Fix:** Run `git remote -v` to see the URL. Compare it character by character with the URL on your GitHub page. Use `git remote set-url origin <correct-url>` to fix.
+**Fix:** Save the file in your editor, run `git status` to confirm it is listed, then re-run `git add` and `git commit`.
 
 ## FAQ
 
-### Is pushing the same as committing?
+### Is the tutorial over?
 
-No. Committing saves a version locally. Pushing uploads those local commits to a remote. You can commit many times and push all of them at once.
+Yes. You know the everyday Git workflow. From here on, you just repeat this loop on your own projects. For more advanced topics like rebasing, pull requests, and conflict resolution, GitHub's own docs and sites like [Pro Git](https://git-scm.com/book/en/v2) are great next steps.
 
-### Can I push other branches?
+### Should I always push after every commit?
 
-Yes. Every branch can be pushed independently: `git push -u origin dark-theme`, for example. Each branch gets its own upstream the first time you push with `-u`.
+Not necessarily. Some people commit many small changes locally and push them in a batch. Pushing more often gives you an online backup sooner — that is the main tradeoff.
 
-### Does pushing send my entire project every time?
+### How do I undo a pushed commit?
 
-No. Git only sends the commits the remote does not have yet. After the first push, subsequent pushes are tiny — just the new commits.
+If no one else has pulled it yet: `git reset --hard HEAD~1` locally, then `git push --force-with-lease`. If others have pulled it, use `git revert <hash>` instead — that makes a new commit that undoes the old one, which is safer for teammates.
 
-### Can I see the webpage live on the internet?
+### What should I learn next?
 
-Yes — but GitHub does not serve HTML files as a website automatically. You would need to enable **GitHub Pages** in the repo settings. That is outside this tutorial, but it is a nice follow-up: Settings → Pages → Source: main branch.
+In order of usefulness for a beginner:
+1. `.gitignore` — telling Git which files to ignore
+2. Pull requests — how teams review changes on GitHub
+3. Conflict resolution — what to do when a merge conflicts
+4. Rebasing — a different way to combine branches
