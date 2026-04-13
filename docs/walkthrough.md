@@ -1,63 +1,87 @@
-# Walkthrough — Stage 1: First Save Point
+# Walkthrough — Stage 2: Add Styling
 
-> This stage has no code changes. The walkthrough explains each Git command you ran.
+> Read the code first, then read the explanation.
 
-## Command: `git init`
+## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-2-add-styling/style.css)
 
-```bash
-git init
+### Lines 1–6: The body rule
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  margin-top: 80px;
+}
 ```
 
 **What's happening:**
 
-`git init` turns a normal folder into a Git repository. It creates a hidden folder called `.git` inside `box-runner`. Everything Git remembers — every file version, every commit message, every branch — lives in `.git`. You never edit `.git` directly.
+CSS rules target HTML elements. This rule targets `<body>`, which means it affects the entire visible page.
 
-Before `git init`: your folder is just a folder. After `git init`: Git is watching.
+- `font-family: Arial, sans-serif;` asks the browser to use Arial, and if Arial is not available, any sans-serif font.
+- `background-color: #f4f4f4;` sets a very light gray. Hex colors are `#rrggbb`, two digits per color channel.
+- `text-align: center;` centers all text inside the body.
+- `margin-top: 80px;` pushes the whole page down 80 pixels so it does not sit flush against the top of the browser.
 
-## Command: `git status`
+### Lines 8–10: The h1 rule
 
-```bash
-git status
+```css
+h1 {
+  color: #333333;
+}
 ```
 
 **What's happening:**
 
-`git status` is the "what is going on right now?" command. At this point it tells you `index.html` is **untracked** — Git can see the file, but has not been told to care about it yet.
+Every `<h1>` in the body gets a dark charcoal color instead of pure black. Subtle, but nicer to read.
 
-You will run `git status` constantly while learning Git. It is the safest command — it never changes anything, it just reports.
+### Lines 12–14: The p rule
 
-## Command: `git add index.html`
-
-```bash
-git add index.html
+```css
+p {
+  color: #555555;
+}
 ```
 
 **What's happening:**
 
-`git add` moves a file into the **staging area**. Think of the staging area as a cardboard box labeled "things to save next." The file is not saved yet — it is just packed into the box.
+A lighter gray for paragraphs, to create a gentle contrast with the heading.
 
-Running `git status` after this shows `index.html` under **Changes to be committed**.
+### Lines 16–23: The button rule
 
-## Command: `git commit -m "..."`
-
-```bash
-git commit -m "Created basic Box Runner start screen"
+```css
+button {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
 ```
 
 **What's happening:**
 
-`git commit` takes everything in the staging area and writes it into the Git history as a permanent save point. The `-m` flag attaches a short message describing the save.
+This turns the default browser button into a clean green pill.
 
-Good commit messages describe what this save represents: **Created basic Box Runner start screen**. Future you will read this line in `git log` and know exactly what is in that commit.
+- `background-color: #4caf50;` is a friendly mid-green.
+- `color: #ffffff;` makes the label white.
+- `border: none;` removes the default border.
+- `padding: 12px 24px;` adds space inside the button — 12 pixels top/bottom, 24 pixels left/right.
+- `font-size: 16px;` makes the label larger.
+- `cursor: pointer;` changes the mouse cursor to a hand when you hover, so the button feels clickable.
 
-## Command: `git log`
+## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-2-add-styling/index.html)
 
-```bash
-git log
+### Line 5: Linking the stylesheet
+
+```html
+    <link rel="stylesheet" href="style.css">
 ```
 
 **What's happening:**
 
-`git log` shows every save point in order, newest first. Right now there is one entry. After Stage 2 there will be two, and so on. `git log` is how you look backward in time.
+`<link>` tells the browser "go load this extra file and apply it to the page." `rel="stylesheet"` is the relationship — this file is a stylesheet. `href="style.css"` is the path — relative to the HTML file, so Git can see both files live in the same folder.
 
-Try `git log --oneline` for a shorter view — each commit becomes a single line.
+Without this one line, `style.css` would just sit on disk unused.

@@ -1,11 +1,11 @@
 {
-  "number": 1,
-  "title": "First Save Point",
-  "branch": "stage-1-first-commit",
-  "tag": "v1-first-commit",
-  "previous": "stage-0-create-screen",
-  "concept": "git init, add, commit",
-  "summary": "Initialize Git in the folder and create the very first commit — a save point for the starter screen.",
+  "number": 2,
+  "title": "Add Styling",
+  "branch": "stage-2-add-styling",
+  "tag": "v2-add-styling",
+  "previous": "stage-1-first-commit",
+  "concept": "tracking a new file and an edited file together",
+  "summary": "Create style.css, link it from index.html, and make one commit that covers both a new file and an edited file.",
   "stack": {
     "frontend": {
       "html": "5",

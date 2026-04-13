@@ -1,49 +1,51 @@
-# Exercises — Stage 1: First Save Point
+# Exercises — Stage 2: Add Styling
 
-## Exercise 1: Run `git status` in different states
+## Exercise 1: Change the background color
 
-**Goal:** Build a reflex for using `git status`.
-
-**Steps:**
-1. Run `git status`. It says clean.
-2. Open `index.html` and add a space somewhere. Save.
-3. Run `git status`. Now it says `index.html` is **modified**.
-4. Undo the change and save again.
-5. Run `git status`. It says clean once more.
-
-**What happened:** `git status` compares your working folder against the most recent commit. When they match, it says clean. When they do not, it tells you exactly which files differ.
-
-## Exercise 2: Stage and unstage
-
-**Goal:** See how `git add` moves a file into the staging area — and how to take it back out.
+**Goal:** See a visible change, feel the Git workflow for a one-file edit.
 
 **Steps:**
-1. Change `<h1>Box Runner</h1>` to `<h1>Box Runner!</h1>` and save.
-2. Run `git status`. `index.html` is modified but not staged.
-3. Run `git add index.html`. Run `git status` — it is now staged.
-4. Run `git restore --staged index.html`. Run `git status` — it is modified again, but not staged.
-5. Undo your edit in the file and save to get back to clean.
+1. Change `background-color: #f4f4f4;` to `background-color: #ffe4b5;` (light peach).
+2. Save and reload the page.
+3. Run `git status`. Notice `style.css` is now modified.
+4. Change it back to `#f4f4f4` and save.
+5. Run `git status` again — clean.
 
-**What happened:** `git add` moves changes into the staging area, and `git restore --staged` moves them back out. Your actual file is never touched by either command — only Git's "ready to save" box changes.
+**What happened:** Git compares file contents, not just file names. Editing and un-editing leaves you back where you started, so Git reports the working tree as clean.
 
-## Exercise 3: Read your history
+## Exercise 2: Commit only one file
 
-**Goal:** Get comfortable with `git log`.
-
-**Steps:**
-1. Run `git log`.
-2. Run `git log --oneline`.
-3. Run `git log --oneline --decorate`.
-
-**What happened:** Each variation shows the same one commit in a different format. Later, when you have many commits, `--oneline` is the fastest way to see your whole history at a glance.
-
-## Exercise 4: Peek inside `.git`
-
-**Goal:** Confirm that the Git repo is just files on disk.
+**Goal:** Understand that `git add file.css` is more precise than `git add .`.
 
 **Steps:**
-1. Run `ls -a` inside `box-runner`. You see `.git` listed.
-2. Run `ls .git`. You see folders like `objects`, `refs`, and a file called `HEAD`.
-3. Do **not** edit anything inside `.git`.
+1. Edit `style.css` (change the button color to `#ff5722`).
+2. Edit `index.html` (change the paragraph text to "Ready to run?").
+3. Run `git status` — both are modified.
+4. Run `git add style.css`. Run `git status` — only `style.css` is staged.
+5. Run `git restore --staged style.css` and revert both files to get back to clean.
 
-**What happened:** The entire Git repository is a folder. That is why cloning a repo means copying files — there is no hidden database somewhere. If you deleted `.git`, you would go right back to Stage 0 (a plain folder with no history).
+**What happened:** `git add` accepts a file, a folder, or `.` for "everything." You can stage exactly the files you want to put in the next commit, which matters when you have changes you are not ready to save.
+
+## Exercise 3: Break the link
+
+**Goal:** Prove that the `<link>` tag is what connects HTML to CSS.
+
+**Steps:**
+1. In `index.html`, change `href="style.css"` to `href="style.cssx"` (a bad path).
+2. Save and reload the page.
+3. See the page revert to the unstyled Stage 0 look.
+4. Fix the path and reload.
+
+**What happened:** The browser tried to load `style.cssx`, could not find it, and silently rendered the page with only default styles. The HTML is still correct — the connection to CSS was what broke.
+
+## Exercise 4: Look at the diff before committing
+
+**Goal:** Learn `git diff`, which shows exactly what changed.
+
+**Steps:**
+1. Edit `style.css`: change the h1 color to `#0000ff`.
+2. Before running `git add`, run `git diff`.
+3. Observe the red line (old) and green line (new) for the change.
+4. Revert the change and save.
+
+**What happened:** `git diff` shows unstaged changes as a line-by-line comparison. It is the easiest way to review your work before committing. Use it often.

@@ -1,16 +1,16 @@
-# Changelog — Stage 1: First Save Point
+# Changelog — Stage 2: Add Styling
 
 ## Previous Stage
 
-Stage 0: Create the Game Screen (branch: `stage-0-create-screen`)
+Stage 1: First Save Point (branch: `stage-1-first-commit`)
 
 ## Files Changed
 
 | File | Change | What and Why |
 |------|--------|--------------|
-| `.git/` | added | The hidden Git repository metadata, created by `git init`. You do not edit this by hand. |
-| `index.html` | tracked | The file itself is unchanged, but Git now knows about it and has a copy in its history. |
+| `style.css` | added | Holds the page styling. New file — Git will see it as **untracked** until you `git add` it. |
+| `index.html` | modified | Adds a single `<link>` tag so the browser loads `style.css`. Git will see this as **modified**. |
 
 ## Summary
 
-No code changes. This stage is about adding Git to the project. You run `git init` to create a repository, `git add index.html` to stage the file, and `git commit` to make the very first save point. After this stage every future change can be saved on top of this commit.
+This stage adds the first CSS file to the project and links it from the HTML. The two changes go into a single commit so you can see that `git add` and `git commit` can bundle a brand-new file and an edit to an existing file into one save point.

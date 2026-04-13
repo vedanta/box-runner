@@ -1,52 +1,41 @@
-# Troubleshooting — Stage 1: First Save Point
+# Troubleshooting — Stage 2: Add Styling
 
 ## Common Errors
 
-### `git: command not found`
+### The page looks unstyled after reloading
 
-**Cause:** Git is not installed, or not in your shell's PATH.
+**Cause:** The browser cannot find `style.css`. Either the filename is wrong, the `href` is wrong, or the file is in a different folder.
 
-**Fix:** Install Git from [git-scm.com](https://git-scm.com/). On macOS you can also run `xcode-select --install`. Open a fresh terminal after installing and try `git --version` again.
+**Fix:** Make sure `style.css` is in the same folder as `index.html` and the `<link>` tag says `href="style.css"` — no leading slash, no subfolder.
 
-### `fatal: not a git repository`
+### `git add .` complains "pathspec did not match"
 
-**Cause:** You ran `git status` (or another Git command) from a folder that is not a Git repo. Usually you forgot to `cd box-runner` first, or you forgot to run `git init`.
+**Cause:** You ran the command outside the `box-runner` folder.
 
-**Fix:** Make sure you are inside the `box-runner` folder (`pwd` to check) and that you ran `git init` once inside it.
+**Fix:** `cd box-runner` and try again.
 
-### `Author identity unknown` when committing
+### The commit includes more files than I expected
 
-**Cause:** Git needs a name and email attached to every commit, and yours are not set.
+**Cause:** `git add .` grabs everything that changed in the current folder, including editor backup files or `.DS_Store` on macOS.
 
-**Fix:** Run these two commands once on your machine:
+**Fix:** Run `git status` **before** `git add` to see what will be staged. If you see files you did not mean to commit, stage them individually: `git add index.html style.css`.
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-```
+### Browser still shows the old styles after editing `style.css`
 
-Then retry `git commit`.
+**Cause:** The browser cached the old stylesheet.
 
-### `nothing to commit, working tree clean` when you expected a commit
-
-**Cause:** You never ran `git add`, so nothing is staged. A commit with nothing in the staging area does nothing.
-
-**Fix:** Run `git add index.html`, then `git commit -m "..."` again.
+**Fix:** Hard reload. On macOS: `Cmd+Shift+R`. On Windows/Linux: `Ctrl+Shift+R`.
 
 ## FAQ
 
-### What is the difference between `git add` and `git commit`?
+### Why one commit instead of two?
 
-`git add` stages a file — it puts the file in the "ready to save" box. `git commit` actually saves everything in the box as a permanent save point with a message.
+Because the HTML edit and the new CSS file are part of the **same change** — "I added styling." A commit should represent a single logical change, not a single file. If you made two commits here you would have one broken commit ("linked a CSS file that does not exist") followed by one that fixes it.
 
-### Can I edit the commit message after committing?
+### Can I split a commit into two later if I want to?
 
-Yes, for the most recent commit: `git commit --amend -m "new message"`. Avoid amending commits you have already shared with others — that is a topic for later.
+Yes — with `git reset` and re-staging, or with interactive rebase. That is advanced territory. For now, stage carefully before committing.
 
-### Do I need to `git init` every time I make a change?
+### Why does `git add .` include `style.css` if it was never tracked?
 
-No. `git init` runs exactly once per project, ever. After that, you just use `git add` and `git commit`.
-
-### Why is the commit message in past tense in this tutorial?
-
-The convention in this project is to describe what the commit does as a complete sentence: "Created basic Box Runner start screen." Many teams use present tense ("Create...") — either is fine. Pick one style and stick to it.
+`git add` means "stage for the next commit." It does not care whether the file was tracked before. New files become tracked the moment you stage them.

@@ -1,67 +1,103 @@
-# Steps — Stage 1: First Save Point
+# Steps — Stage 2: Add Styling
 
-> Follow these steps in order. Every step is a terminal command run from inside the `box-runner` folder.
+> Every step is a file edit or a Git command run from inside `box-runner`.
 
 ## Prerequisites
 
-Completed Stage 0. You have a `box-runner` folder with `index.html` inside it. Git is installed.
+Completed Stage 1. `git log --oneline` shows one commit.
 
 ## Steps
 
-### 1. Move into the project folder
+### 1. Create `style.css`
 
-```bash
-cd box-runner
+Inside the `box-runner` folder, create a new file called `style.css`:
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  margin-top: 80px;
+}
+
+h1 {
+  color: #333333;
+}
+
+p {
+  color: #555555;
+}
+
+button {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
 ```
 
-Every Git command in this tutorial runs from inside this folder.
+This centers the page, sets a light background, and gives the button a clean look.
 
-### 2. Initialize the Git repository
+### 2. Edit `index.html` to link the stylesheet
 
-```bash
-git init
+Add one line inside `<head>`, right after the `<title>` line:
+
+```html
+    <link rel="stylesheet" href="style.css">
 ```
 
-This creates a hidden `.git` folder inside `box-runner`. That hidden folder is the entire Git repository — every save point will eventually live there.
+The complete `index.html` now looks like this:
 
-You may see a message like `Initialized empty Git repository in /.../.git/`. That is the confirmation.
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Box Runner</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Box Runner</h1>
+    <p>Press Start to begin your adventure.</p>
+    <button>Start Game</button>
+  </body>
+</html>
+```
 
-### 3. Check the status
+### 3. Reload the page in your browser
+
+You should see the new gray background, centered layout, and green button. Do this **before** committing — the visible change is the reason you are committing.
+
+### 4. Check the status
 
 ```bash
 git status
 ```
 
-You will see `index.html` listed under **Untracked files**. Untracked means Git can see it, but is not yet tracking its history.
+You will see two different things:
 
-### 4. Stage `index.html`
+- `style.css` under **Untracked files** — Git has never seen it before.
+- `index.html` under **Changes not staged for commit** — Git knows this file, and it has been edited.
 
-```bash
-git add index.html
-```
-
-Staging is "getting ready to save." The file is now lined up to be included in the next commit, but the commit has not happened yet.
-
-Run `git status` again. `index.html` has moved to **Changes to be committed**.
-
-### 5. Make the first commit
+### 5. Stage both files
 
 ```bash
-git commit -m "Created basic Box Runner start screen"
+git add .
 ```
 
-This is the save point. The `-m` flag is short for "message" — the text in quotes is a note describing what you saved.
+The `.` means "everything changed in the current folder." Both `style.css` and `index.html` are now staged.
 
-### 6. View your history
+### 6. Commit the save point
 
 ```bash
-git log
+git commit -m "Added styling to the Box Runner screen"
 ```
 
-You see one commit with the message you just wrote, your name, and the date. That is your first save point.
+One commit, two files.
 
 ## Verify
 
-- `git status` prints `nothing to commit, working tree clean`.
-- `git log --oneline` prints one line ending in `Created basic Box Runner start screen`.
-- Opening `index.html` in the browser still shows the same page from Stage 0.
+- `git log --oneline` shows two commits.
+- `git status` prints clean.
+- Reloading the browser still shows the styled page.

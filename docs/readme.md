@@ -1,35 +1,29 @@
-# Stage 1 — First Save Point
+# Stage 2 — Add Styling
 
-> Turn your folder into a Git repository and make the very first save point.
+> Style the game screen with CSS and save the new file plus the edited HTML in a single commit.
 
 ## What You'll Learn
 
-- What a Git repository is
-- `git init` — how to start tracking a folder
-- `git status` — how to see what Git knows
-- `git add` — how to stage a file for the next save
-- `git commit` — how to make a save point
+- How to link a CSS file from an HTML file
+- That one commit can contain both a new file and an edited file
+- How `git status` tells the difference between **untracked** and **modified**
 
 ## Prerequisites
 
-You finished [Stage 0](../stage-0-create-screen/readme.md) and can open `index.html` in your browser. You also need Git installed. Check with:
-
-```bash
-git --version
-```
-
-If that prints a version number like `git version 2.40.0`, you are ready.
+You finished [Stage 1](../stage-1-first-commit/readme.md). Running `git log --oneline` in your `box-runner` folder shows one commit.
 
 ## What Changes
 
-The webpage does not change. `index.html` stays exactly the same. What changes is that your folder becomes a **Git repository** and gains its first commit.
+- `style.css` is added. It centers the page, gives it a soft gray background, and styles the button.
+- `index.html` is edited to `<link>` the new stylesheet.
+- One commit records both changes together.
 
 ## Outcome
 
-After this stage:
+Open `index.html`. The page now has:
 
-- Your `box-runner` folder contains a hidden `.git` directory (that is the Git repo).
-- `git log` shows one commit with the message **Created basic Box Runner start screen**.
-- `git status` reports `nothing to commit, working tree clean`.
+- A light gray background
+- Centered content with a bit of space at the top
+- A friendlier green button
 
-You now have a save point. Even if you deleted `index.html` by accident, Git could bring it back exactly as it is right now.
+`git log --oneline` shows two commits. `git status` is clean.
