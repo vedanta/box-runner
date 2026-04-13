@@ -1,89 +1,48 @@
-# Steps — Stage 5: Experiment on the Branch
+# Steps — Stage 6: Merge the Branch
 
 ## Prerequisites
 
-Completed Stage 4. You are standing on `dark-theme` (`git branch` shows `* dark-theme`).
+Completed Stage 5. You are on `dark-theme` with four commits.
 
 ## Steps
 
-### 1. Confirm you are on the right branch
-
-```bash
-git branch
-```
-
-The asterisk must be next to `dark-theme`. If it is next to `main`, run `git checkout dark-theme` first. This matters — if you edit on the wrong branch, the dark theme will end up on `main` and break the lesson.
-
-### 2. Rewrite `style.css`
-
-Replace the entire contents of `style.css` with:
-
-```css
-body {
-  font-family: Arial, sans-serif;
-  background-color: #222222;
-  color: #ffffff;
-  text-align: center;
-  margin-top: 80px;
-}
-
-h1 {
-  color: #00ffcc;
-}
-
-p {
-  color: #cccccc;
-}
-
-button {
-  background-color: #00ffcc;
-  color: #222222;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.scoreboard {
-  margin-top: 40px;
-  display: inline-block;
-  padding: 16px 32px;
-  background-color: #333333;
-  border: 1px solid #00ffcc;
-}
-```
-
-### 3. Reload the page
-
-The page is now dark with teal accents. The scoreboard panel has a thin teal border.
-
-### 4. Stage and commit on `dark-theme`
-
-```bash
-git add style.css
-git commit -m "Tried a dark theme for Box Runner"
-```
-
-`git log --oneline` now shows four commits.
-
-### 5. Prove that `main` is untouched (sneak peek)
-
-You will do this for real in Stage 6, but run these commands now to confirm:
+### 1. Switch to `main`
 
 ```bash
 git checkout main
 ```
 
-Reload `index.html` — the page is light again. The dark theme did not follow you.
+Look at `git branch` — asterisk is on `main` now. Run `git log --oneline` — three commits, not four. The dark theme commit lives on `dark-theme` only.
+
+### 2. Reload the page
+
+Open `index.html` in the browser. **The light theme is back.**
+
+This is the moment the whole branching concept clicks. You did real work on `dark-theme`, but `main` was completely unaffected. If you had committed the dark theme directly on `main` instead, you would have no escape route.
+
+### 3. Merge `dark-theme` into `main`
 
 ```bash
-git checkout dark-theme
+git merge dark-theme
 ```
 
-Reload — dark theme is back.
+Git prints something like `Fast-forward` and lists the file change. This is a **fast-forward merge** — Git just moved the `main` label up to where `dark-theme` already was, because `main` had no newer commits of its own.
+
+### 4. Reload the page
+
+Refresh the browser. The dark theme is now on `main`. You have successfully promoted your experiment to the main version.
+
+### 5. Confirm the history
+
+```bash
+git log --oneline
+```
+
+Four commits. `git log --oneline --graph --all` shows that `main` and `dark-theme` now point at the same commit.
 
 ## Verify
 
-- On `dark-theme`, the page is dark with teal accents.
-- On `main`, the page is light.
-- `git log --oneline` on `dark-theme` shows four commits; on `main` shows three.
+- You are on `main`.
+- `git log --oneline` shows four commits, including the dark theme one.
+- The page on `main` shows the dark theme.
+- `git status` is clean.

@@ -1,88 +1,41 @@
-# Walkthrough — Stage 5: Experiment on the Branch
+# Walkthrough — Stage 6: Merge the Branch
 
-## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-5-dark-theme/style.css)
+> This stage is about Git commands, not code.
 
-### Lines 1–7: Dark body
-
-```css
-body {
-  font-family: Arial, sans-serif;
-  background-color: #222222;
-  color: #ffffff;
-  text-align: center;
-  margin-top: 80px;
-}
-```
-
-**What's happening:**
-
-The background flips from `#f4f4f4` (light gray) to `#222222` (dark charcoal). A new line, `color: #ffffff;`, sets the default text color to white so everything inside the body is legible on the dark background without being re-declared per element.
-
-### Lines 9–11: Teal heading
-
-```css
-h1 {
-  color: #00ffcc;
-}
-```
-
-**What's happening:**
-
-`#00ffcc` is a bright teal. On a dark background it almost glows — exactly the look you want for a game title.
-
-### Lines 13–15: Softer paragraph text
-
-```css
-p {
-  color: #cccccc;
-}
-```
-
-**What's happening:**
-
-The body color is pure white, but paragraphs get a slightly dimmed `#cccccc` so the heading stands out as more prominent than the supporting text.
-
-### Lines 17–24: Teal button
-
-```css
-button {
-  background-color: #00ffcc;
-  color: #222222;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-}
-```
-
-**What's happening:**
-
-The button swaps colors — teal background with dark text. The padding and cursor rules are identical to Stage 2 because those are layout, not theme.
-
-### Lines 26–32: Dark scoreboard panel
-
-```css
-.scoreboard {
-  margin-top: 40px;
-  display: inline-block;
-  padding: 16px 32px;
-  background-color: #333333;
-  border: 1px solid #00ffcc;
-}
-```
-
-**What's happening:**
-
-The scoreboard keeps its layout (`margin-top`, `display`, `padding`) and only changes its theme. The background goes slightly lighter than the body (`#333333`) so the panel pops against the page, and the border turns teal to match the accent.
-
-## Command: `git commit -m "Tried a dark theme for Box Runner"`
+## Command: `git checkout main`
 
 ```bash
-git commit -m "Tried a dark theme for Box Runner"
+git checkout main
 ```
 
 **What's happening:**
 
-This is a normal commit — there is nothing special about the syntax. What matters is **where** this commit lands. Because `HEAD` points at `dark-theme`, the new commit becomes the tip of the `dark-theme` branch. `main` does not move at all.
+Switches your current branch to `main`. Git updates `HEAD` to point at `main` and rewrites any files on disk that differ between the two branches. In this case, `style.css` gets replaced with the light-theme version (because that is what the Stage 3 commit contains), and `index.html` stays the same (it never changed on `dark-theme`).
 
-Branch labels update only when you commit **while standing on them**.
+This is what lets you try something on a branch without risk — `main` is preserved, and you can return to it exactly as it was.
+
+## Command: `git merge dark-theme`
+
+```bash
+git merge dark-theme
+```
+
+**What's happening:**
+
+`git merge <branch>` brings the commits from `<branch>` into your current branch. Because `main` had no new commits since `dark-theme` branched off, Git does the simplest possible merge: it moves the `main` label forward to the same commit `dark-theme` points at.
+
+This is called a **fast-forward** merge. No merge commit is created — the history stays linear.
+
+If `main` had gained its own commits in the meantime, Git would have created a **merge commit** with two parents. You do not hit that case here because nothing else touched `main`.
+
+## The result
+
+After the merge:
+
+- `main` points at the same commit as `dark-theme`.
+- `style.css` on `main` is now the dark version.
+- `dark-theme` still exists as a label. You could delete it with `git branch -d dark-theme`, but you do not have to.
+
+## Why this matters
+
+Every real project uses branches for features and fixes, then merges them back to a main line. The mental picture you just built — "a branch is a safe place to try things, and merging brings it home" — is the entire mental model for team Git workflows.

@@ -1,53 +1,45 @@
-# Troubleshooting — Stage 5: Experiment on the Branch
+# Troubleshooting — Stage 6: Merge the Branch
 
 ## Common Errors
 
-### The dark theme appeared on `main` instead of `dark-theme`
+### `fatal: refusing to merge unrelated histories`
 
-**Cause:** You edited and committed while standing on the wrong branch. Easy mistake — always check `git branch` before committing.
+**Cause:** Very rare here, but it happens if the branches were initialized separately. Not expected in this tutorial.
 
-**Fix:** Hardest fix of this tutorial, but still short. On `main`:
+**Fix:** If you really need to merge them, add `--allow-unrelated-histories`. You should not need this in Box Runner.
 
-```bash
-git reset --hard HEAD~1   # removes the wrong commit from main
-```
+### Merge created a conflict
 
-Then switch and redo:
+**Cause:** Something changed on `main` between the branch point and now. In this tutorial you did nothing on `main` after Stage 3, so a conflict here means you went off-script.
 
-```bash
-git checkout dark-theme
-```
+**Fix:** Run `git status` to see which file is conflicted. Open it, find the `<<<<<<<` and `>>>>>>>` markers, choose the version you want, save, then `git add <file>` and `git commit`. If it feels overwhelming, run `git merge --abort` to cancel the merge and try again.
 
-Edit `style.css`, commit. Before committing, double-check `git branch`.
+### `git merge dark-theme` says "Already up to date"
 
-### `git commit` says "nothing to commit"
+**Cause:** You are already on the same commit as `dark-theme`. Probably you forgot to run `git checkout main` first and tried to merge while standing on `dark-theme`.
 
-**Cause:** You did not save your file after editing, or you edited a different file than `style.css`.
+**Fix:** `git checkout main`, then `git merge dark-theme`.
 
-**Fix:** Save the file in your editor, run `git status` to confirm `style.css` is listed under changes, then `git add style.css` and commit again.
+### After the merge the page still looks light
 
-### Switching back to `main` shows the dark theme
+**Cause:** Browser cache.
 
-**Cause:** Either you did not commit on `dark-theme` first (so the change is "floating" and follows you), or you accidentally committed on `main`.
-
-**Fix:** Run `git log --oneline` on each branch. `main` should have three commits, `dark-theme` four. If not, see the first error above.
-
-### The teal color looks off
-
-**Cause:** Hex colors are strict: `#00ffcc` is six characters after the `#`, and zero is the digit, not the letter O.
-
-**Fix:** Copy the color directly from `steps.md`. No typing.
+**Fix:** Hard reload — `Cmd+Shift+R` or `Ctrl+Shift+R`.
 
 ## FAQ
 
-### Why does rewriting the whole file feel different from adding a few rules?
+### What is a fast-forward merge?
 
-Because this is an experiment. A dark theme is a theme change, not a layering on top of the light theme. Rewriting makes the intent clear and the diff readable.
+A merge where your current branch has no commits of its own since it branched. Git can just slide the branch label forward to match the other branch — no merging actually happens. It is the simplest possible outcome.
 
-### Can I keep both themes at the same time?
+### Should I delete merged branches?
 
-Not in one file without extra tools. You could add a second CSS file, or use CSS classes on the body. Those are both valid approaches and would make a good follow-up project — but they are beyond this Git-focused tutorial.
+Usually yes, once you are sure the work landed. Old merged branches clutter `git branch` output. Use `git branch -d <name>` to delete — the lowercase `-d` only deletes fully merged branches, so it is a safe habit.
 
-### Is it okay to commit many small experiments on a branch?
+### Can I merge `main` into `dark-theme` instead?
 
-Yes. Branches are cheap. Commit often, try wild things, and throw away the whole branch (`git branch -D dark-theme`) if you hate the result. You lose nothing on `main`.
+Yes. `git merge` goes "into the branch you are currently on." That is a common workflow — keeping your feature branch up to date with `main` while you work on it.
+
+### What if I change my mind after merging?
+
+If you have not pushed yet, `git reset --hard HEAD~1` undoes a merge commit, or you can use the reflog (`git reflog`) to find the previous state. Once you push a merge, undoing it gets socially tricky — talk to your team first.

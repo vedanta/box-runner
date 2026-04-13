@@ -1,24 +1,24 @@
-# Stage 5 — Experiment on the Branch
+# Stage 6 — Merge the Branch
 
-> Rewrite `style.css` with a dark theme while standing on the `dark-theme` branch. Commit. Watch `main` stay exactly the way it was.
+> Switch back to `main`, see the light theme return, then merge `dark-theme` into `main` to adopt the experiment.
 
 ## What You'll Learn
 
-- How commits attach to the branch you are currently on
-- That `main` is untouched while you experiment on another branch
-- How to switch branches and see a completely different version of your files
+- How `git checkout main` brings back the version on `main`
+- How `git merge dark-theme` pulls commits from another branch onto your current branch
+- What a fast-forward merge is
 
 ## Prerequisites
 
-You finished [Stage 4](../stage-4-create-branch/readme.md). `git branch` shows `main` and `* dark-theme`.
+You finished [Stage 5](../stage-5-dark-theme/readme.md). `git log --oneline` on `dark-theme` shows four commits. On `main`, three.
 
 ## What Changes
 
-- `style.css` is rewritten with dark colors and teal accents.
-- One new commit is added — but only on the `dark-theme` branch. The `main` branch is untouched.
+- You switch to `main`. For a moment, the webpage looks like Stage 3 again (light theme). **This is the "aha" moment.**
+- You run `git merge dark-theme`. The dark theme is now on `main`.
 
 ## Outcome
 
-- On `dark-theme`: the page has a charcoal background, teal heading and button, and a dark scoreboard panel with a teal border.
-- On `main`: the page still has the light gray background from Stage 3. No changes.
-- `git log --oneline` on `dark-theme` shows four commits. On `main`, still three.
+- `main` now has four commits.
+- The page on `main` looks identical to the page on `dark-theme`.
+- `dark-theme` still exists. You can delete it later if you want, but merging does not destroy it.

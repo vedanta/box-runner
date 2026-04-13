@@ -1,11 +1,11 @@
 {
-  "number": 5,
-  "title": "Experiment on the Branch",
-  "branch": "stage-5-dark-theme",
-  "tag": "v5-dark-theme",
-  "previous": "stage-4-create-branch",
-  "concept": "committing on a non-main branch",
-  "summary": "Rewrite style.css with a dark background on the dark-theme branch, then commit. Main stays untouched.",
+  "number": 6,
+  "title": "Merge the Branch",
+  "branch": "stage-6-merge",
+  "tag": "v6-merge",
+  "previous": "stage-5-dark-theme",
+  "concept": "git checkout main + git merge",
+  "summary": "Switch back to main, confirm the dark theme is gone, then merge dark-theme into main to bring the new look home.",
   "stack": {
     "frontend": {
       "html": "5",

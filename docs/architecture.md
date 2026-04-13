@@ -1,4 +1,4 @@
-# Architecture — Stage 5: Experiment on the Branch
+# Architecture — Stage 6: Merge the Branch
 
 ## Current Structure
 
@@ -6,23 +6,23 @@
 box-runner/
 ├── .git/
 ├── index.html
-└── style.css    (dark theme on dark-theme branch, light theme on main)
+└── style.css    (dark theme now — same on both branches)
 ```
 
-Note that the **file on disk depends on which branch you are on**. Git swaps the file contents when you switch branches.
+No new files. `style.css` on `main` has been updated to the dark version via the merge.
 
 ## Git History
 
 ```mermaid
 flowchart TD
-  A[Commit 1: Created basic Box Runner start screen] --> B[Commit 2: Added styling]
-  B --> C[Commit 3: Added scoreboard]
-  C --> D[Commit 4: Tried a dark theme - dark-theme HEAD]
-  C --> M[main]
+  A[Commit 1] --> B[Commit 2]
+  B --> C[Commit 3]
+  C --> D[Commit 4: dark theme]
+  D --> M[main and dark-theme]
 ```
 
-The history now has a fork. `main` stayed at Commit 3. `dark-theme` advanced to Commit 4. They share the first three commits but diverge from there.
+Both branch labels now point at Commit 4. The history is still a straight line because the merge was a fast-forward.
 
 ## What Changed
 
-This stage demonstrates the core value of a branch. Nothing about your folder structure changed — you still have two files. What changed is that the project now has two visible versions at the same time, selected by which branch you check out.
+The merge did not create a new commit. It simply moved the `main` label from Commit 3 to Commit 4. This is the simplest kind of merge — no merge commit, no conflicts, no drama.

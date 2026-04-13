@@ -1,15 +1,18 @@
-# Changelog — Stage 5: Experiment on the Branch
+# Changelog — Stage 6: Merge the Branch
 
 ## Previous Stage
 
-Stage 4: Try a Branch (branch: `stage-4-create-branch`)
+Stage 5: Experiment on the Branch (branch: `stage-5-dark-theme`)
 
 ## Files Changed
 
-| File | Change | What and Why |
-|------|--------|--------------|
-| `style.css` | modified | Every color swapped for a dark theme: `#222222` background, `#00ffcc` teal accents, dark scoreboard panel. |
+No edits to project files. The merge moves commits between branches.
+
+| Change | What and Why |
+|--------|--------------|
+| `main` branch advanced | `main` now points at the same commit as `dark-theme` (the Stage 5 commit). |
+| `style.css` on main | Updated to the dark theme version because that is what the Stage 5 commit contains. |
 
 ## Summary
 
-This is the first commit that lives on a non-main branch. The dark theme only exists on `dark-theme`. When you switch back to `main`, the old light theme is still there. This is the whole reason branches exist — safe, isolated experiments.
+Stage 6 is about `git merge`. You switch to `main`, confirm the light theme is still there (untouched since Stage 3), and then merge `dark-theme` into `main`. Git does a fast-forward merge because `main` was an ancestor of `dark-theme` — no merge commit, no conflicts.
