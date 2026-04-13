@@ -1,44 +1,42 @@
-# Exercises — Stage 7: Connect to GitHub
+# Exercises — Stage 8: Push to GitHub
 
-## Exercise 1: Inspect `.git/config`
+## Exercise 1: Browse your commits on GitHub
 
-**Goal:** See where the remote is actually stored.
-
-**Steps:**
-1. Run `cat .git/config`.
-2. Look for a `[remote "origin"]` section.
-
-**What happened:** The remote is just a few lines of text in `.git/config`. Nothing magical. If you wanted to, you could edit that file by hand — but use `git remote` commands instead so Git validates the input.
-
-## Exercise 2: Remove and re-add the remote
-
-**Goal:** Practice the full lifecycle of a remote.
+**Goal:** Get comfortable reading history in the GitHub UI.
 
 **Steps:**
-1. Run `git remote remove origin`.
-2. Run `git remote -v` — no remotes listed.
-3. Run `git remote add origin https://github.com/<your-username>/box-runner.git` again.
-4. Run `git remote -v` — origin is back.
+1. Go to your repo page on GitHub.
+2. Click the **commits** link (usually shows "4 commits" near the top).
+3. Click any commit to see the diff for that save point.
 
-**What happened:** Removing a remote only deletes the local pointer. The GitHub repo is untouched. You can add and remove remotes freely.
+**What happened:** GitHub's commit view is the web version of `git show <hash>`. Every commit message you typed in Stages 1–5 is visible here, in order.
 
-## Exercise 3: Change the URL
+## Exercise 2: View a specific file at a specific commit
 
-**Goal:** Learn `git remote set-url`.
-
-**Steps:**
-1. Run `git remote set-url origin https://github.com/<your-username>/box-runner.git` (same URL — pretend it changed).
-2. Run `git remote -v` to confirm.
-
-**What happened:** `set-url` replaces the existing URL instead of adding a new one. Useful when you move a repo between accounts or migrate between hosts.
-
-## Exercise 4: Peek at the empty repo on GitHub
-
-**Goal:** Get familiar with the GitHub UI.
+**Goal:** Learn to jump through history on GitHub.
 
 **Steps:**
-1. Go to your repo page on github.com.
-2. Find the "Quick setup" box.
-3. Read the commands GitHub suggests — you will recognize most of them.
+1. On the commits page, click the commit titled "Added scoreboard to the game screen."
+2. Click the `style.css` link in that commit.
+3. Notice you are seeing `style.css` as it looked at that commit — **before** the dark theme.
 
-**What happened:** GitHub offers two flows: "create a new repository on the command line" and "push an existing repository." You are doing the second flow, manually.
+**What happened:** GitHub lets you browse any file at any point in history. This is the online version of `git show <hash>:style.css`.
+
+## Exercise 3: Run `git push` with no arguments
+
+**Goal:** Confirm that `-u` set up tracking.
+
+**Steps:**
+1. Run `git push`.
+
+**What happened:** You see "Everything up-to-date." Because `-u` linked `main` to `origin/main`, Git now knows exactly where to push with no arguments.
+
+## Exercise 4: Look at the remote tracking branch
+
+**Goal:** Understand `origin/main`.
+
+**Steps:**
+1. Run `git branch -r`.
+2. Run `git log --oneline origin/main`.
+
+**What happened:** `git branch -r` lists **remote-tracking branches** — your local copy of what the remote looks like. `origin/main` is your cached snapshot of the `main` branch on GitHub. It updates when you push or fetch.

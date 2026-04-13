@@ -1,68 +1,62 @@
-# Steps — Stage 7: Connect to GitHub
-
-> This stage uses the GitHub website and a single Git command.
+# Steps — Stage 8: Push to GitHub
 
 ## Prerequisites
 
-Completed Stage 6. You have a GitHub account.
+Completed Stage 7. `git remote -v` shows `origin`. The GitHub page for `box-runner` is still empty.
 
 ## Steps
 
-### 1. Create an empty repository on GitHub
-
-1. Go to [github.com/new](https://github.com/new).
-2. Set **Repository name** to `box-runner`.
-3. Leave **Description** blank (or write anything you like).
-4. Choose **Public**. Private also works.
-5. **Very important:** leave all three of these **unchecked**:
-   - Add a README file
-   - Add .gitignore
-   - Choose a license
-
-   If you check any of them, GitHub creates a first commit on the remote and pushing becomes more complicated.
-6. Click **Create repository**.
-
-### 2. Copy the repository URL
-
-On the next page, GitHub shows a "Quick setup" block with a URL. Use the **HTTPS** URL — it looks like:
-
-```
-https://github.com/<your-username>/box-runner.git
-```
-
-Copy it.
-
-### 3. Add the remote locally
-
-In your terminal, inside the `box-runner` folder:
+### 1. Check what branch you are on
 
 ```bash
-git remote add origin https://github.com/<your-username>/box-runner.git
+git branch
 ```
 
-Replace `<your-username>` with your actual GitHub username. `origin` is just a name — it is the conventional name for "the main place I push to."
+The asterisk must be on `main`. If not, run `git checkout main`.
 
-### 4. Verify the remote
+### 2. Push to GitHub
 
 ```bash
-git remote -v
+git push -u origin main
 ```
 
-You should see two lines:
+- `git push` — the action: upload commits.
+- `-u` — short for `--set-upstream`. Tells Git "remember that my `main` tracks `origin/main` from now on."
+- `origin` — the remote to push to.
+- `main` — the branch to push.
+
+The first time you push, GitHub will ask you to authenticate. See the walkthrough for notes on personal access tokens.
+
+You should see output ending with something like:
 
 ```
-origin  https://github.com/<your-username>/box-runner.git (fetch)
-origin  https://github.com/<your-username>/box-runner.git (push)
+To https://github.com/<your-username>/box-runner.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
 ```
 
-Fetch is for pulling changes down. Push is for uploading changes up. Both point at the same URL.
+### 3. Refresh the GitHub page
 
-### 5. Confirm nothing is uploaded yet
+Go to `https://github.com/<your-username>/box-runner` in your browser and reload.
 
-Refresh the GitHub page for your repo. It still says it is empty, with instructions for how to "push an existing repository." That confirms that `git remote add` did not send anything — it only stored the address.
+Now the repo shows:
+
+- `index.html` and `style.css` in the file list
+- A "4 commits" link near the top
+- The contents of `index.html` rendered as raw HTML in the preview
+
+Click the commits link. You see all four save points in order, with the exact messages you wrote.
+
+### 4. Try a plain `git push`
+
+```bash
+git push
+```
+
+Because `-u` set up tracking, this works with no arguments now. Git responds with "Everything up-to-date." You do not need to repeat `-u origin main` — that was a one-time setup.
 
 ## Verify
 
-- `git remote -v` prints the two origin lines.
-- The GitHub page for `box-runner` shows an empty repository.
-- Your local `git log --oneline` still shows four commits.
+- GitHub page shows your files.
+- Commits page shows four entries.
+- Running `git push` by itself responds "Everything up-to-date."

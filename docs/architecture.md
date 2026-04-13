@@ -1,31 +1,31 @@
-# Architecture — Stage 7: Connect to GitHub
+# Architecture — Stage 8: Push to GitHub
 
 ## Current Structure
 
 ```
 box-runner/          (local)
 ├── .git/
-│   └── config       (now contains a [remote "origin"] section)
 ├── index.html
 └── style.css
 ```
 
-And on GitHub:
-
 ```
-github.com/<you>/box-runner   (empty — no commits yet)
+github.com/<you>/box-runner   (now in sync with local)
+├── index.html
+├── style.css
+└── 4 commits on main
 ```
 
 ## Data Flow
 
 ```mermaid
 flowchart LR
-  A[Your local box-runner] -- git remote add --> B[origin - pointer]
-  B -. will push to .-> C[github.com/you/box-runner]
+  A[Local main] -- git push -u origin main --> B[origin/main on GitHub]
+  B -- renders in browser --> C[github.com page]
 ```
 
-The dotted line shows a connection that exists but has not been used yet. `git push` in Stage 8 turns that dotted line solid.
+For the first time, the dotted line from Stage 7 is solid. Commits flow from your machine to GitHub.
 
 ## What Changed
 
-The local repository now knows where its online twin lives. The online repo exists but is empty. The two sides are introduced but not yet synced.
+The repository is no longer just on your laptop. Every save point now exists in two places: your `.git/` folder and GitHub. If your laptop disappeared tomorrow, you could `git clone` the repo back from GitHub and pick up where you left off.

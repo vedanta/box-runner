@@ -1,25 +1,23 @@
-# Stage 7 — Connect to GitHub
+# Stage 8 — Push to GitHub
 
-> Create an empty repository on github.com and tell your local project where it lives.
+> Upload every commit in your local `main` branch to GitHub in one command.
 
 ## What You'll Learn
 
-- What a remote is
-- How to create an empty GitHub repository
-- `git remote add origin <url>`
-- `git remote -v`
+- `git push -u origin main`
+- What the `-u` flag does (sets upstream tracking)
+- How to verify a push worked by reloading the GitHub page
 
 ## Prerequisites
 
-- You finished [Stage 6](../stage-6-merge/readme.md).
-- You have a GitHub account. If not, sign up at [github.com](https://github.com).
+You finished [Stage 7](../stage-7-remote/readme.md). `git remote -v` shows `origin` pointing at your GitHub repo, and the GitHub page still shows an empty repository.
 
 ## What Changes
 
-No project files change. You create a brand-new repository on GitHub and attach it to your local repo as the **remote** named `origin`. Nothing has been uploaded yet.
+No local files change. What changes is **GitHub** — your four commits appear online.
 
 ## Outcome
 
-- An empty repository exists at `https://github.com/<your-username>/box-runner`.
-- `git remote -v` prints two lines showing the fetch and push URLs for `origin`.
-- The webpage is unchanged.
+- The GitHub repo page now shows `index.html` and `style.css` with the dark theme.
+- The "commits" link in the GitHub UI shows all four save points.
+- Running `git push` by itself (no arguments) in the future will push to `origin/main`, because `-u` set up tracking.

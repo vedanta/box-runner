@@ -1,17 +1,18 @@
-# Changelog — Stage 7: Connect to GitHub
+# Changelog — Stage 8: Push to GitHub
 
 ## Previous Stage
 
-Stage 6: Merge the Branch (branch: `stage-6-merge`)
+Stage 7: Connect to GitHub (branch: `stage-7-remote`)
 
 ## Files Changed
 
-No files changed. A new Git **remote** is added to the repository configuration.
+No project files changed.
 
 | Change | What and Why |
 |--------|--------------|
-| `.git/config` | Gains a `[remote "origin"]` section with the URL of your new GitHub repo. |
+| GitHub repo populated | All four local commits uploaded to `origin/main`. |
+| `.git/config` gains `branch.main.remote = origin` | Set up by the `-u` flag so future `git push` calls know where to go. |
 
 ## Summary
 
-You create an empty repository on GitHub and connect it to the local project. Nothing is uploaded yet — a remote is a pointer, not a sync. Stage 8 does the actual upload.
+A single command uploads your entire history to GitHub: `git push -u origin main`. After this, the project (and every save point that got it there) is visible online.

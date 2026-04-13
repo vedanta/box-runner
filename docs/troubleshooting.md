@@ -1,41 +1,45 @@
-# Troubleshooting — Stage 7: Connect to GitHub
+# Troubleshooting — Stage 8: Push to GitHub
 
 ## Common Errors
 
-### `fatal: remote origin already exists`
+### `fatal: Authentication failed`
 
-**Cause:** You already added a remote named `origin`, probably in an earlier attempt.
+**Cause:** You typed your GitHub account password instead of a personal access token.
 
-**Fix:** Either remove and re-add — `git remote remove origin` then `git remote add origin <url>` — or update in place: `git remote set-url origin <url>`.
+**Fix:** Create a PAT as described in the walkthrough and use it as the password. On macOS, you can store it in Keychain so you only enter it once.
 
-### The GitHub repo has a README I did not ask for
+### `error: failed to push some refs ... Updates were rejected because the remote contains work that you do not have locally`
 
-**Cause:** You checked "Add a README file" when creating the repo on GitHub.
+**Cause:** The GitHub repo is not empty. Usually because you checked "Add README" when creating the repo.
 
-**Fix:** Easiest — delete the repo on GitHub (Settings → Danger zone → Delete) and recreate it with all checkboxes off. Or learn `git pull --rebase` in Stage 8 and work through the conflict.
+**Fix:** Easiest path — delete the GitHub repo and recreate it empty. Or pull first: `git pull origin main --allow-unrelated-histories`, resolve the merge, then push.
 
-### I do not remember my GitHub username
+### `fatal: The current branch main has no upstream branch`
 
-**Fix:** Go to github.com while logged in. Your username appears in the top-right menu and in your profile URL.
+**Cause:** You ran `git push` without `-u origin main` the first time, and tracking was never set up.
 
-### I do not know which URL to use, HTTPS or SSH
+**Fix:** Run `git push -u origin main` once. After that, `git push` alone will work.
 
-**Fix:** Use HTTPS for this tutorial — it is the default and works without extra setup. SSH is nicer once you do it, but it requires generating and uploading an SSH key first. That is outside the scope of this tutorial.
+### `Repository not found`
+
+**Cause:** Typo in the remote URL, or the repo is private and you are not authenticated as the owner.
+
+**Fix:** Run `git remote -v` to see the URL. Compare it character by character with the URL on your GitHub page. Use `git remote set-url origin <correct-url>` to fix.
 
 ## FAQ
 
-### Can I have more than one remote?
+### Is pushing the same as committing?
 
-Yes. You might have `origin` (GitHub) and `backup` (a second host) at the same time. `git push origin main` and `git push backup main` would send the same commits to both.
+No. Committing saves a version locally. Pushing uploads those local commits to a remote. You can commit many times and push all of them at once.
 
-### Does `origin` have to be named `origin`?
+### Can I push other branches?
 
-No. It is just a conventional name for "the main remote." You could call it `github`, `upstream`, or anything else. Sticking with `origin` makes your commands match what most tutorials and teams expect.
+Yes. Every branch can be pushed independently: `git push -u origin dark-theme`, for example. Each branch gets its own upstream the first time you push with `-u`.
 
-### Is the remote URL sensitive?
+### Does pushing send my entire project every time?
 
-No. A repo URL is public-ish. What is sensitive is your personal access token (if you use HTTPS) or your SSH private key. Never share those.
+No. Git only sends the commits the remote does not have yet. After the first push, subsequent pushes are tiny — just the new commits.
 
-### Why doesn't `git remote add` upload anything?
+### Can I see the webpage live on the internet?
 
-Because it only stores a bookmark. Adding a remote is a local operation — Git never contacts the URL until you explicitly run `git fetch`, `git pull`, or `git push`.
+Yes — but GitHub does not serve HTML files as a website automatically. You would need to enable **GitHub Pages** in the repo settings. That is outside this tutorial, but it is a nice follow-up: Settings → Pages → Source: main branch.

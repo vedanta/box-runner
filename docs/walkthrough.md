@@ -1,54 +1,63 @@
-# Walkthrough — Stage 7: Connect to GitHub
+# Walkthrough — Stage 8: Push to GitHub
 
-> No code changes. This stage is about one Git concept: the remote.
-
-## Concept: What is a remote?
-
-A **remote** is a named pointer to another copy of your repository. That copy usually lives on a server — GitHub, GitLab, a company server — but it could even be another folder on your own machine.
-
-Remotes do two things:
-
-- **Fetch:** you can download commits from them.
-- **Push:** you can upload commits to them.
-
-You can have many remotes per repo, but most projects have just one, and it is conventionally named `origin`.
-
-## Command: `git remote add origin <url>`
+## Command: `git push -u origin main`
 
 ```bash
-git remote add origin https://github.com/<your-username>/box-runner.git
+git push -u origin main
 ```
 
 **What's happening:**
 
-`git remote add` creates a new remote. Three parts:
+Four tokens, each with a job:
 
-1. `add` — the action.
-2. `origin` — the name you want to give this remote. `origin` is the convention for "the primary place."
-3. `https://github.com/...` — the URL Git should use when fetching from or pushing to this remote.
+- **`git push`** — the command. It uploads commits from your local branch to a remote branch.
+- **`-u`** — the "set upstream" flag. It tells Git to remember a default mapping between your local `main` and the remote's `main` on `origin`. After this one-time flag, you can just run `git push` or `git pull` with no arguments.
+- **`origin`** — the remote to push to. This is the name you gave in Stage 7 when you ran `git remote add origin ...`.
+- **`main`** — the local branch to push. You are pushing your `main` to the remote's `main`.
 
-All this command does is write a few lines to `.git/config`. No network traffic. Nothing is uploaded. The remote is a bookmark, not a sync.
+Everything you have ever committed to `main` now exists on GitHub.
 
-## Command: `git remote -v`
+## What the `-u` flag actually does
 
-```bash
-git remote -v
+Without `-u`, Git has no default for `git push` or `git pull` on this branch — you would have to type the remote and branch every time. With `-u`, Git writes a small block to `.git/config`:
+
+```
+[branch "main"]
+    remote = origin
+    merge = refs/heads/main
 ```
 
-**What's happening:**
+From then on, Git knows that `main` is linked to `origin/main`. You only set this up once per branch, the first time you push it.
 
-Lists every remote you have, with the URLs it uses for fetch and push. The `-v` stands for "verbose" — without it, you get just the names. With it, you see the actual URLs, which is what you usually want.
+## Authentication on the first push
 
-## Why an empty GitHub repo?
+The first `git push` on a new machine triggers an authentication prompt. Modern GitHub does not accept account passwords over HTTPS — you need a **personal access token** (PAT).
 
-Because you want your local history to become the starting history on GitHub. If you checked "Add a README file" when creating the repo, GitHub would make its own first commit, and your local `main` would not match. You would have to resolve that mismatch before pushing. Leaving the new repo completely empty avoids all of that.
+**How to create one:**
 
-## The HTTPS URL and authentication
+1. On github.com, go to **Settings → Developer settings → Personal access tokens → Tokens (classic)**.
+2. Click **Generate new token (classic)**.
+3. Give it a name like "box-runner tutorial."
+4. Check the **repo** scope.
+5. Generate and copy the token (it starts with `ghp_`).
+6. When Git asks for your password during push, paste the token.
 
-The first time you push (in Stage 8), GitHub will ask you to authenticate. Modern GitHub expects a **personal access token** (PAT) instead of your password. If you see a password prompt during push:
+Your operating system's credential helper usually caches the token, so you only do this once.
 
-- Generate a PAT in your GitHub settings (Developer settings → Personal access tokens → Tokens (classic)).
-- Give it the `repo` scope.
-- Paste the token when Git asks for your "password."
+## Reading the push output
 
-You only do this setup once per machine.
+A successful push prints something like:
+
+```
+Enumerating objects: 12, done.
+Counting objects: 100% (12/12), done.
+...
+To https://github.com/<your-username>/box-runner.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+```
+
+The last two lines are the important ones:
+
+- `[new branch] main -> main` — a brand-new branch was created on the remote.
+- `branch 'main' set up to track 'origin/main'` — the `-u` flag did its job.

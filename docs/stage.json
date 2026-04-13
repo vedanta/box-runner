@@ -1,11 +1,11 @@
 {
-  "number": 7,
-  "title": "Connect to GitHub",
-  "branch": "stage-7-remote",
-  "tag": "v7-remote",
-  "previous": "stage-6-merge",
-  "concept": "creating a repo and adding a remote",
-  "summary": "Create an empty repository on GitHub and connect it to the local project with git remote add origin.",
+  "number": 8,
+  "title": "Push to GitHub",
+  "branch": "stage-8-push",
+  "tag": "v8-push",
+  "previous": "stage-7-remote",
+  "concept": "git push -u origin main",
+  "summary": "Upload every commit so far to GitHub. The webpage and its full history are now online.",
   "stack": {
     "frontend": {
       "html": "5",
