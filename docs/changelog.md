@@ -1,15 +1,16 @@
-# Changelog — Stage 0: Create the Game Screen
+# Changelog — Stage 1: First Save Point
 
 ## Previous Stage
 
-None. This is the starting point.
+Stage 0: Create the Game Screen (branch: `stage-0-create-screen`)
 
 ## Files Changed
 
 | File | Change | What and Why |
 |------|--------|--------------|
-| `index.html` | added | The game start screen. Contains the title, a tagline, and a Start Game button. |
+| `.git/` | added | The hidden Git repository metadata, created by `git init`. You do not edit this by hand. |
+| `index.html` | tracked | The file itself is unchanged, but Git now knows about it and has a copy in its history. |
 
 ## Summary
 
-Stage 0 is the "before Git" state. You create a folder and a single HTML file so there is something real and visible on screen. No Git commands run yet — the next stage turns this folder into a Git repository and makes the first save point.
+No code changes. This stage is about adding Git to the project. You run `git init` to create a repository, `git add index.html` to stage the file, and `git commit` to make the very first save point. After this stage every future change can be saved on top of this commit.

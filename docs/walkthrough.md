@@ -1,56 +1,63 @@
-# Walkthrough — Stage 0: Create the Game Screen
+# Walkthrough — Stage 1: First Save Point
 
-> Read the code first, then read the explanation.
+> This stage has no code changes. The walkthrough explains each Git command you ran.
 
-## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-0-create-screen/index.html)
+## Command: `git init`
 
-### Lines 1–3: The doctype and html tag
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
+```bash
+git init
 ```
 
 **What's happening:**
 
-`<!DOCTYPE html>` tells the browser "this is an HTML5 document." Every modern HTML file starts with this line. The `<html>` tag wraps the entire page — everything else goes inside it.
+`git init` turns a normal folder into a Git repository. It creates a hidden folder called `.git` inside `box-runner`. Everything Git remembers — every file version, every commit message, every branch — lives in `.git`. You never edit `.git` directly.
 
-### Lines 4–5: The head
+Before `git init`: your folder is just a folder. After `git init`: Git is watching.
 
-```html
-    <title>Box Runner</title>
-  </head>
+## Command: `git status`
+
+```bash
+git status
 ```
 
 **What's happening:**
 
-The `<head>` is for information about the page that is not shown on the page itself. The `<title>` sets the text in your browser tab. Open the page and look at the tab — it says "Box Runner."
+`git status` is the "what is going on right now?" command. At this point it tells you `index.html` is **untracked** — Git can see the file, but has not been told to care about it yet.
 
-### Lines 6–10: The body
+You will run `git status` constantly while learning Git. It is the safest command — it never changes anything, it just reports.
 
-```html
-  <body>
-    <h1>Box Runner</h1>
-    <p>Press Start to begin your adventure.</p>
-    <button>Start Game</button>
-  </body>
+## Command: `git add index.html`
+
+```bash
+git add index.html
 ```
 
 **What's happening:**
 
-The `<body>` holds everything the visitor sees. Three elements live inside it:
+`git add` moves a file into the **staging area**. Think of the staging area as a cardboard box labeled "things to save next." The file is not saved yet — it is just packed into the box.
 
-- `<h1>` is a top-level heading. Browsers render it big and bold by default.
-- `<p>` is a paragraph. It is the tagline under the heading.
-- `<button>` is a clickable button. It does nothing yet because there is no JavaScript — that is intentional.
+Running `git status` after this shows `index.html` under **Changes to be committed**.
 
-### Line 11: Closing the html tag
+## Command: `git commit -m "..."`
 
-```html
-</html>
+```bash
+git commit -m "Created basic Box Runner start screen"
 ```
 
 **What's happening:**
 
-Every opening tag needs a closing tag. `</html>` is the final character of the file.
+`git commit` takes everything in the staging area and writes it into the Git history as a permanent save point. The `-m` flag attaches a short message describing the save.
+
+Good commit messages describe what this save represents: **Created basic Box Runner start screen**. Future you will read this line in `git log` and know exactly what is in that commit.
+
+## Command: `git log`
+
+```bash
+git log
+```
+
+**What's happening:**
+
+`git log` shows every save point in order, newest first. Right now there is one entry. After Stage 2 there will be two, and so on. `git log` is how you look backward in time.
+
+Try `git log --oneline` for a shorter view — each commit becomes a single line.

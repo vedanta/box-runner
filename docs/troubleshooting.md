@@ -1,39 +1,52 @@
-# Troubleshooting — Stage 0: Create the Game Screen
+# Troubleshooting — Stage 1: First Save Point
 
 ## Common Errors
 
-### The browser shows the raw HTML code instead of a page
+### `git: command not found`
 
-**Cause:** You probably saved the file with the wrong extension, like `index.html.txt`. Some editors (TextEdit on macOS especially) add `.txt` silently.
+**Cause:** Git is not installed, or not in your shell's PATH.
 
-**Fix:** Rename the file so it ends in `.html` and nothing else. On macOS, use Finder's Get Info panel or run `mv index.html.txt index.html` in the terminal.
+**Fix:** Install Git from [git-scm.com](https://git-scm.com/). On macOS you can also run `xcode-select --install`. Open a fresh terminal after installing and try `git --version` again.
 
-### The browser says "file not found"
+### `fatal: not a git repository`
 
-**Cause:** You opened a path that does not exist, or you are in the wrong folder.
+**Cause:** You ran `git status` (or another Git command) from a folder that is not a Git repo. Usually you forgot to `cd box-runner` first, or you forgot to run `git init`.
 
-**Fix:** Run `pwd` (macOS/Linux) or `cd` (Windows) to see where you are. Make sure you are inside the `box-runner` folder, then run `ls` (or `dir`) to confirm `index.html` is there before opening it.
+**Fix:** Make sure you are inside the `box-runner` folder (`pwd` to check) and that you ran `git init` once inside it.
 
-### The page is blank
+### `Author identity unknown` when committing
 
-**Cause:** Usually a typo in the HTML — a missing angle bracket or a closing tag in the wrong place.
+**Cause:** Git needs a name and email attached to every commit, and yours are not set.
 
-**Fix:** Compare your file byte-for-byte with the code block in `steps.md`. HTML is forgiving about whitespace but strict about `<` and `>`.
+**Fix:** Run these two commands once on your machine:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+Then retry `git commit`.
+
+### `nothing to commit, working tree clean` when you expected a commit
+
+**Cause:** You never ran `git add`, so nothing is staged. A commit with nothing in the staging area does nothing.
+
+**Fix:** Run `git add index.html`, then `git commit -m "..."` again.
 
 ## FAQ
 
-### Do I need a web server to view this?
+### What is the difference between `git add` and `git commit`?
 
-No. Because there is no JavaScript, no images, and no external files, you can open `index.html` directly from your file system. The URL in your browser will start with `file://`, and that is fine.
+`git add` stages a file — it puts the file in the "ready to save" box. `git commit` actually saves everything in the box as a permanent save point with a message.
 
-### Why am I not using Git yet?
+### Can I edit the commit message after committing?
 
-So you feel the "before" state. When you hit Stage 1 and create the first commit, you will already have a real webpage in front of you. That makes the "save point" idea concrete instead of abstract.
+Yes, for the most recent commit: `git commit --amend -m "new message"`. Avoid amending commits you have already shared with others — that is a topic for later.
 
-### Can I use VS Code, or do I need a specific editor?
+### Do I need to `git init` every time I make a change?
 
-Any text editor works. VS Code, Sublime, Atom, even Notepad. Avoid editors like Microsoft Word — those save their own special format, not plain text.
+No. `git init` runs exactly once per project, ever. After that, you just use `git add` and `git commit`.
 
-### Does the order of the elements in the body matter?
+### Why is the commit message in past tense in this tutorial?
 
-Yes. HTML renders top to bottom. If you swap `<h1>` and `<p>`, the paragraph appears above the heading. Try it in the exercises section if you are curious.
+The convention in this project is to describe what the commit does as a complete sentence: "Created basic Box Runner start screen." Many teams use present tense ("Create...") — either is fine. Pick one style and stick to it.

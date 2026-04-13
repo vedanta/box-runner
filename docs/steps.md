@@ -1,70 +1,67 @@
-# Steps — Stage 0: Create the Game Screen
+# Steps — Stage 1: First Save Point
 
-> Follow these steps in order. Each step is either a command to run or a file to create.
+> Follow these steps in order. Every step is a terminal command run from inside the `box-runner` folder.
 
 ## Prerequisites
 
-A text editor and a browser. No Git yet.
+Completed Stage 0. You have a `box-runner` folder with `index.html` inside it. Git is installed.
 
 ## Steps
 
-### 1. Create a project folder
+### 1. Move into the project folder
 
 ```bash
-mkdir box-runner
 cd box-runner
 ```
 
-This gives you a home for the project. From now on, every file you create lives inside this folder.
+Every Git command in this tutorial runs from inside this folder.
 
-### 2. Create `index.html`
-
-Inside the `box-runner` folder, create a new file called `index.html` with these exact contents:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Box Runner</title>
-  </head>
-  <body>
-    <h1>Box Runner</h1>
-    <p>Press Start to begin your adventure.</p>
-    <button>Start Game</button>
-  </body>
-</html>
-```
-
-This is the smallest real HTML page you can build: a title, a heading, a paragraph, and a button.
-
-### 3. Open the page in your browser
-
-On macOS:
+### 2. Initialize the Git repository
 
 ```bash
-open index.html
+git init
 ```
 
-On Linux:
+This creates a hidden `.git` folder inside `box-runner`. That hidden folder is the entire Git repository — every save point will eventually live there.
+
+You may see a message like `Initialized empty Git repository in /.../.git/`. That is the confirmation.
+
+### 3. Check the status
 
 ```bash
-xdg-open index.html
+git status
 ```
 
-On Windows:
+You will see `index.html` listed under **Untracked files**. Untracked means Git can see it, but is not yet tracking its history.
+
+### 4. Stage `index.html`
 
 ```bash
-start index.html
+git add index.html
 ```
 
-Or just double-click the file in your file explorer.
+Staging is "getting ready to save." The file is now lined up to be included in the next commit, but the commit has not happened yet.
+
+Run `git status` again. `index.html` has moved to **Changes to be committed**.
+
+### 5. Make the first commit
+
+```bash
+git commit -m "Created basic Box Runner start screen"
+```
+
+This is the save point. The `-m` flag is short for "message" — the text in quotes is a note describing what you saved.
+
+### 6. View your history
+
+```bash
+git log
+```
+
+You see one commit with the message you just wrote, your name, and the date. That is your first save point.
 
 ## Verify
 
-You should see a plain white page with:
-
-- **Box Runner** as a big heading
-- **Press Start to begin your adventure.** below it
-- A **Start Game** button
-
-If you click the button, nothing happens. That is correct — there is no JavaScript yet.
+- `git status` prints `nothing to commit, working tree clean`.
+- `git log --oneline` prints one line ending in `Created basic Box Runner start screen`.
+- Opening `index.html` in the browser still shows the same page from Stage 0.

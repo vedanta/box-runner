@@ -1,31 +1,35 @@
-# Stage 0 — Create the Game Screen
+# Stage 1 — First Save Point
 
-> Build the very first webpage for Box Runner. No Git yet — this is the "before" state so the save system feels meaningful later.
+> Turn your folder into a Git repository and make the very first save point.
 
 ## What You'll Learn
 
-- How to create a project folder
-- How to write a minimal HTML5 page
-- How to open an HTML file directly in your browser
+- What a Git repository is
+- `git init` — how to start tracking a folder
+- `git status` — how to see what Git knows
+- `git add` — how to stage a file for the next save
+- `git commit` — how to make a save point
 
 ## Prerequisites
 
-- A text editor (VS Code, Sublime, even TextEdit)
-- A web browser (Chrome, Firefox, Safari, Edge)
-- A terminal you are comfortable opening
+You finished [Stage 0](../stage-0-create-screen/readme.md) and can open `index.html` in your browser. You also need Git installed. Check with:
 
-You do not need Git installed yet. That comes in Stage 1.
+```bash
+git --version
+```
+
+If that prints a version number like `git version 2.40.0`, you are ready.
 
 ## What Changes
 
-You create a new folder called `box-runner` and add one file inside it: `index.html`. The HTML file has a title, a tagline, and a Start Game button.
+The webpage does not change. `index.html` stays exactly the same. What changes is that your folder becomes a **Git repository** and gains its first commit.
 
 ## Outcome
 
-When you double-click `index.html` (or run `open index.html`), your browser shows a plain white page with:
+After this stage:
 
-- A heading that says **Box Runner**
-- A line of text: **Press Start to begin your adventure.**
-- A button labeled **Start Game**
+- Your `box-runner` folder contains a hidden `.git` directory (that is the Git repo).
+- `git log` shows one commit with the message **Created basic Box Runner start screen**.
+- `git status` reports `nothing to commit, working tree clean`.
 
-The button does not do anything yet. That is fine — this tutorial is about Git, not JavaScript. The webpage is just a prop so every Git commit corresponds to something you can see.
+You now have a save point. Even if you deleted `index.html` by accident, Git could bring it back exactly as it is right now.

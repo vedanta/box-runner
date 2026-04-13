@@ -1,46 +1,49 @@
-# Exercises — Stage 0: Create the Game Screen
+# Exercises — Stage 1: First Save Point
 
-## Exercise 1: Change the heading
+## Exercise 1: Run `git status` in different states
 
-**Goal:** See how editing the HTML file instantly changes what the browser shows.
-
-**Steps:**
-1. Open `index.html` in your editor.
-2. Change `<h1>Box Runner</h1>` to `<h1>Cube Dash</h1>`.
-3. Save the file.
-4. Go back to your browser tab and reload the page.
-
-**What happened:** The heading updated. The browser reads the file from disk each time you reload, so any change you save shows up immediately. Change it back to `Box Runner` before moving on.
-
-## Exercise 2: Break the page on purpose
-
-**Goal:** Learn what happens when HTML is malformed.
+**Goal:** Build a reflex for using `git status`.
 
 **Steps:**
-1. Remove the closing `</h1>` tag.
-2. Save and reload the page.
-3. Observe that the tagline and the button look weird — they may render as part of the heading.
-4. Put `</h1>` back and reload.
+1. Run `git status`. It says clean.
+2. Open `index.html` and add a space somewhere. Save.
+3. Run `git status`. Now it says `index.html` is **modified**.
+4. Undo the change and save again.
+5. Run `git status`. It says clean once more.
 
-**What happened:** Browsers try very hard to render broken HTML, but they guess. Closing tags matter. This is why a "save point" system (Git, coming in Stage 1) is helpful — you can always get back to a working version.
+**What happened:** `git status` compares your working folder against the most recent commit. When they match, it says clean. When they do not, it tells you exactly which files differ.
 
-## Exercise 3: Peek at the browser tab
+## Exercise 2: Stage and unstage
 
-**Goal:** Understand what `<title>` does.
-
-**Steps:**
-1. Change `<title>Box Runner</title>` to `<title>My First Page</title>`.
-2. Save and reload.
-3. Look at the browser tab — not the page, the tab itself at the top.
-
-**What happened:** The tab label changed, but the page content did not. `<title>` only controls the tab. Change it back to `Box Runner`.
-
-## Exercise 4: Click the button
-
-**Goal:** Confirm the button is just a button for now.
+**Goal:** See how `git add` moves a file into the staging area — and how to take it back out.
 
 **Steps:**
-1. Click the Start Game button a few times.
-2. Notice that nothing happens beyond a tiny visual press effect.
+1. Change `<h1>Box Runner</h1>` to `<h1>Box Runner!</h1>` and save.
+2. Run `git status`. `index.html` is modified but not staged.
+3. Run `git add index.html`. Run `git status` — it is now staged.
+4. Run `git restore --staged index.html`. Run `git status` — it is modified again, but not staged.
+5. Undo your edit in the file and save to get back to clean.
 
-**What happened:** A `<button>` element is clickable, but without JavaScript it has no behavior attached. This tutorial never adds JavaScript — the button is a visual prop so Git commits have something to show.
+**What happened:** `git add` moves changes into the staging area, and `git restore --staged` moves them back out. Your actual file is never touched by either command — only Git's "ready to save" box changes.
+
+## Exercise 3: Read your history
+
+**Goal:** Get comfortable with `git log`.
+
+**Steps:**
+1. Run `git log`.
+2. Run `git log --oneline`.
+3. Run `git log --oneline --decorate`.
+
+**What happened:** Each variation shows the same one commit in a different format. Later, when you have many commits, `--oneline` is the fastest way to see your whole history at a glance.
+
+## Exercise 4: Peek inside `.git`
+
+**Goal:** Confirm that the Git repo is just files on disk.
+
+**Steps:**
+1. Run `ls -a` inside `box-runner`. You see `.git` listed.
+2. Run `ls .git`. You see folders like `objects`, `refs`, and a file called `HEAD`.
+3. Do **not** edit anything inside `.git`.
+
+**What happened:** The entire Git repository is a folder. That is why cloning a repo means copying files — there is no hidden database somewhere. If you deleted `.git`, you would go right back to Stage 0 (a plain folder with no history).

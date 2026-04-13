@@ -1,11 +1,11 @@
 {
-  "number": 0,
-  "title": "Create the Game Screen",
-  "branch": "stage-0-create-screen",
-  "tag": "v0-create-screen",
-  "previous": null,
-  "concept": "project setup",
-  "summary": "Make a box-runner folder and write the first index.html so you see a real webpage in the browser. No Git yet.",
+  "number": 1,
+  "title": "First Save Point",
+  "branch": "stage-1-first-commit",
+  "tag": "v1-first-commit",
+  "previous": "stage-0-create-screen",
+  "concept": "git init, add, commit",
+  "summary": "Initialize Git in the folder and create the very first commit — a save point for the starter screen.",
   "stack": {
     "frontend": {
       "html": "5",
