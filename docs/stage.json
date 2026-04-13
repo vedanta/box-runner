@@ -1,0 +1,19 @@
+{
+  "number": 0,
+  "title": "Create the Game Screen",
+  "branch": "stage-0-create-screen",
+  "tag": "v0-create-screen",
+  "previous": null,
+  "concept": "project setup",
+  "summary": "Make a box-runner folder and write the first index.html so you see a real webpage in the browser. No Git yet.",
+  "stack": {
+    "frontend": {
+      "html": "5",
+      "css": "3"
+    },
+    "tools": {
+      "git": "2.40+",
+      "github": "account"
+    }
+  }
+}
