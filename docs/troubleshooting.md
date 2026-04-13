@@ -1,39 +1,39 @@
-# Troubleshooting — Stage 3: Add the Scoreboard
+# Troubleshooting — Stage 4: Try a Branch
 
 ## Common Errors
 
-### The scoreboard panel stretches across the whole page
+### `fatal: A branch named 'dark-theme' already exists`
 
-**Cause:** A `<div>` defaults to `display: block`, which makes it take the full width. The CSS rule uses `display: inline-block` to fix this, so you probably forgot that line.
+**Cause:** You already created the branch (maybe in an earlier attempt) and are trying to create it again.
 
-**Fix:** Add `display: inline-block;` to the `.scoreboard` rule in `style.css`.
+**Fix:** Just switch to it: `git checkout dark-theme`. Or delete and recreate: `git branch -D dark-theme && git checkout -b dark-theme`.
 
-### The scoreboard styles do not apply
+### `error: Your local changes to the following files would be overwritten by checkout`
 
-**Cause:** Usually a typo between `class="scoreboard"` in HTML and `.scoreboard` in CSS. They must match exactly, and CSS class selectors start with a `.` — the HTML does not.
+**Cause:** You have uncommitted changes and Git is protecting them. Switching branches could destroy those changes.
 
-**Fix:** Compare the two. HTML: `class="scoreboard"`. CSS: `.scoreboard { }`.
+**Fix:** Either commit the changes first (`git add . && git commit -m "..."`) or temporarily stash them (`git stash`). You can restore stashed changes later with `git stash pop`.
 
-### `git log` shows too much output and fills the screen
+### I created the branch on the wrong commit
 
-**Cause:** `git log` is paged — it uses `less` under the hood.
+**Cause:** You ran `git checkout -b dark-theme` before finishing Stage 3, so the new branch is rooted somewhere earlier in the history.
 
-**Fix:** Press `q` to quit the pager. Or use `git log --oneline` for a shorter view. Or pipe: `git log --oneline | head`.
+**Fix:** Delete and recreate: `git checkout main`, `git branch -D dark-theme`, then make sure `git log --oneline` on `main` shows all three commits. Now run `git checkout -b dark-theme`.
 
 ## FAQ
 
-### Why is the scoreboard inside a div instead of just two paragraphs?
+### Do I have to name it `dark-theme`?
 
-Because you want to style the score and lives as a **group** — one white panel with a border around both. A div gives you a single box to target with CSS.
+For this tutorial, yes — so the rest of the instructions make sense. In real projects, branch names follow your team's convention. Common patterns are `feature/foo`, `fix/bar`, or just a short word.
 
-### What is the difference between a class and an id?
+### Is there a difference between `git checkout -b` and `git switch -c`?
 
-Classes can be reused — many elements can share `class="scoreboard"`. IDs must be unique — only one element per page can have `id="scoreboard"`. Classes use `.` in CSS; ids use `#`. Start with classes and only reach for ids when you truly have a one-of-a-kind element.
+No, they do the same thing for creating and switching to a branch. `git switch` is a newer command introduced to separate "switch branches" from the many other things `git checkout` can do. Both work.
 
-### Does `git log` show commits from other branches?
+### Can two people have branches with the same name?
 
-By default, `git log` shows commits reachable from your current branch. To see all branches: `git log --all --oneline --graph`. That command will matter more starting in Stage 4.
+Yes — branches are local until you push them. We cover pushing in Stage 8. For now, your `dark-theme` lives only on your computer.
 
-### Is the commit hash the same for everyone?
+### Why does the tutorial check out a branch if nothing changes?
 
-No. Every commit hash depends on the contents, the author, the timestamp, and the parent. Your hashes will be different from anyone else's even if you follow the same steps.
+Because the concept is subtle. If you immediately made a visible change, you would conflate "creating a branch" with "committing on a branch." Splitting them into two stages makes each idea stand on its own.

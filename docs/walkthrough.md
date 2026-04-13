@@ -1,62 +1,48 @@
-# Walkthrough — Stage 3: Add the Scoreboard
+# Walkthrough — Stage 4: Try a Branch
 
-## File: [`index.html`](https://github.com/vedanta/box-runner/blob/stage-3-scoreboard/index.html)
+> No code changes. The walkthrough explains the two Git commands you ran.
 
-### Lines 11–14: The scoreboard div
-
-```html
-    <div class="scoreboard">
-      <p>Score: 0</p>
-      <p>Lives: 3</p>
-    </div>
-```
-
-**What's happening:**
-
-A `<div>` is a generic container. You use it to group related pieces of content so you can style them together. This div holds two `<p>` tags — the score and the lives — and the `class="scoreboard"` attribute gives it a label that CSS can target.
-
-The values "0" and "3" are just text. There is no game running, so nothing changes them yet. The point is to have a real, visible piece of the UI.
-
-## File: [`style.css`](https://github.com/vedanta/box-runner/blob/stage-3-scoreboard/style.css)
-
-### Lines 25–31: The scoreboard rule
-
-```css
-.scoreboard {
-  margin-top: 40px;
-  display: inline-block;
-  padding: 16px 32px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-}
-```
-
-**What's happening:**
-
-The `.scoreboard` selector matches any element with `class="scoreboard"`. In CSS, a dot prefix means "class."
-
-- `margin-top: 40px;` pushes the panel down below the button so it does not crowd the button.
-- `display: inline-block;` lets the panel shrink to fit its content instead of stretching across the whole page.
-- `padding: 16px 32px;` gives breathing room inside the panel — 16 pixels top/bottom, 32 pixels left/right.
-- `background-color: #ffffff;` makes it stand out against the gray body background.
-- `border: 1px solid #dddddd;` draws a thin light gray outline.
-
-## Command: `git log`
+## Command: `git branch`
 
 ```bash
-git log
+git branch
 ```
 
 **What's happening:**
 
-`git log` prints every commit, newest first. For each commit you see the hash (a unique ID), the author, the date, and the message. The hash is what you would use to refer to a specific commit later — for example, `git show <hash>`.
+`git branch` with no arguments lists every branch in your local repository. It also marks your current branch with an asterisk (`*`). Think of it as "where am I?" for Git.
 
-## Command: `git log --oneline`
+Before Stage 4, there is only `main`. After Stage 4, there is `main` and `dark-theme`.
+
+## Command: `git checkout -b dark-theme`
 
 ```bash
-git log --oneline
+git checkout -b dark-theme
 ```
 
 **What's happening:**
 
-Same history, one line per commit. The short hash plus the message. Once your project has twenty commits, `--oneline` is the only sane way to skim them.
+`git checkout -b <name>` is a two-for-one:
+
+1. `git branch <name>` — create a branch called `<name>` pointing at the current commit.
+2. `git checkout <name>` — switch to that branch so future commits land on it.
+
+The `-b` flag is what adds the "create" step. Without `-b`, `git checkout` assumes the branch already exists.
+
+## The mental model
+
+A branch is a **label that moves**. It is not a folder, not a copy of your files, not a second version of the project on disk.
+
+Right now, both `main` and `dark-theme` point at the same commit — the Stage 3 "Added scoreboard to the game screen" save point. When you make a new commit from `dark-theme`, that new commit becomes the latest on `dark-theme`, but `main` stays where it was.
+
+That is why the files on disk do not change when you create a branch. There is nothing new yet. You just planted a second flag on the same hill.
+
+## Command: `git status` (sanity check)
+
+```bash
+git status
+```
+
+**What's happening:**
+
+Running `git status` after creating a branch is a useful habit. It should say `nothing to commit, working tree clean` — confirming that branching did not modify any files.

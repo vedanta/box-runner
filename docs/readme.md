@@ -1,23 +1,25 @@
-# Stage 3 — Add the Scoreboard
+# Stage 4 — Try a Branch
 
-> Add a small score and lives panel, save it, then look back at your history with `git log`.
+> Create a new branch called `dark-theme`. No files change yet — the lesson is what a branch actually is.
 
 ## What You'll Learn
 
-- How to add a new section to an HTML page using a `<div>` and a class
-- How to style a class in CSS
-- How to read your Git history with `git log` and `git log --oneline`
+- What a branch is (a movable label, not a copy of files)
+- `git branch` — list branches and see which one you are on
+- `git checkout -b <name>` — create and switch to a new branch
 
 ## Prerequisites
 
-You finished [Stage 2](../stage-2-add-styling/readme.md). `git log --oneline` shows two commits.
+You finished [Stage 3](../stage-3-scoreboard/readme.md). Running `git log --oneline` shows three commits, all on `main`.
 
 ## What Changes
 
-- `index.html` gets a new `<div class="scoreboard">` with "Score: 0" and "Lives: 3".
-- `style.css` gets a new rule for `.scoreboard` so the panel stands out visually.
-- One commit saves both edits.
+The project files do **not** change. No HTML edit, no CSS edit, no new file, no new commit. You create a new branch and switch to it.
 
 ## Outcome
 
-The page now shows a small white box below the Start Game button with the score and lives. `git log --oneline` shows **three** commits — the full history of your project so far.
+- `git branch` lists two branches: `main` and `dark-theme`.
+- The asterisk in the output points to `dark-theme` — that is your current branch.
+- The webpage looks exactly the same.
+
+This is the stage where the mental model matters more than the result. A branch is not a copy of your project — it is a label that marks your place in the history.

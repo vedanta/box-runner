@@ -1,88 +1,56 @@
-# Steps — Stage 3: Add the Scoreboard
+# Steps — Stage 4: Try a Branch
 
 ## Prerequisites
 
-Completed Stage 2. Running `git log --oneline` shows two commits.
+Completed Stage 3. `git log --oneline` shows three commits. `git branch` shows only `main`.
 
 ## Steps
 
-### 1. Edit `index.html` to add the scoreboard
-
-Add a new `<div>` right after the button, before the closing `</body>` tag:
-
-```html
-    <div class="scoreboard">
-      <p>Score: 0</p>
-      <p>Lives: 3</p>
-    </div>
-```
-
-The complete `index.html`:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Box Runner</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Box Runner</h1>
-    <p>Press Start to begin your adventure.</p>
-    <button>Start Game</button>
-    <div class="scoreboard">
-      <p>Score: 0</p>
-      <p>Lives: 3</p>
-    </div>
-  </body>
-</html>
-```
-
-### 2. Edit `style.css` to style the scoreboard
-
-Add this new rule at the bottom of `style.css`:
-
-```css
-.scoreboard {
-  margin-top: 40px;
-  display: inline-block;
-  padding: 16px 32px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-}
-```
-
-The dot in `.scoreboard` means "apply this rule to any element with `class="scoreboard"`."
-
-### 3. Reload the page
-
-You should see a small white panel below the button showing **Score: 0** and **Lives: 3**.
-
-### 4. Stage and commit
+### 1. List your branches
 
 ```bash
-git add .
-git commit -m "Added scoreboard to the game screen"
+git branch
 ```
 
-### 5. Read your history
+You see one line: `* main`. The asterisk means "this is your current branch."
+
+### 2. Create and switch to a new branch
 
 ```bash
-git log
+git checkout -b dark-theme
 ```
 
-You see three entries, newest first. Each has a hash, an author, a date, and a message.
+This does two things in one command:
 
-Try the compact view too:
+1. Creates a new branch called `dark-theme`.
+2. Switches to it.
+
+You will see a message like `Switched to a new branch 'dark-theme'`.
+
+### 3. List branches again
 
 ```bash
-git log --oneline
+git branch
 ```
 
-Three lines. Three save points.
+Now you see two lines:
+
+```
+  main
+* dark-theme
+```
+
+The asterisk has moved. You are on `dark-theme`.
+
+### 4. Confirm nothing changed
+
+Open `index.html` in the browser. It looks exactly the same as Stage 3. Run `git status` — clean. Run `git log --oneline` — still three commits.
+
+This is important: a new branch by itself changes nothing visible. It just puts a new label on the current commit.
 
 ## Verify
 
-- The browser shows a scoreboard panel.
-- `git log --oneline` lists three commits.
-- `git status` is clean.
+- `git branch` lists `main` and `* dark-theme`.
+- `git status` says clean.
+- `git log --oneline` shows three commits — the same three.
+- The browser shows the same styled page with the scoreboard.

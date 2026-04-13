@@ -1,16 +1,17 @@
-# Changelog — Stage 3: Add the Scoreboard
+# Changelog — Stage 4: Try a Branch
 
 ## Previous Stage
 
-Stage 2: Add Styling (branch: `stage-2-add-styling`)
+Stage 3: Add the Scoreboard (branch: `stage-3-scoreboard`)
 
 ## Files Changed
 
-| File | Change | What and Why |
-|------|--------|--------------|
-| `index.html` | modified | Adds a `<div class="scoreboard">` with two `<p>` tags (score and lives). |
-| `style.css` | modified | Adds a `.scoreboard` rule that gives the panel a white background, border, and spacing. |
+No project files changed. No new commit.
+
+| Change | What and Why |
+|--------|--------------|
+| Branch created: `dark-theme` | A second branch exists in the repository. You are now standing on it. |
 
 ## Summary
 
-This stage adds the scoreboard panel to the game screen and then pauses to look back. You use `git log` to see every save point so far. The point is not the CSS — it is the feeling of reading your own history.
+Stage 4 is deliberately quiet. You run one Git command and end up on a new branch with nothing different in your folder. This is normal and on purpose. Branches only start to show their value once you commit something on them, which happens in Stage 5.

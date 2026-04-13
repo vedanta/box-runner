@@ -1,11 +1,11 @@
 {
-  "number": 3,
-  "title": "Add the Scoreboard",
-  "branch": "stage-3-scoreboard",
-  "tag": "v3-scoreboard",
-  "previous": "stage-2-add-styling",
-  "concept": "git log — seeing history",
-  "summary": "Add score and lives to the HTML and CSS, commit it, then use git log to walk through every save point so far.",
+  "number": 4,
+  "title": "Try a Branch",
+  "branch": "stage-4-create-branch",
+  "tag": "v4-create-branch",
+  "previous": "stage-3-scoreboard",
+  "concept": "git branch / checkout -b",
+  "summary": "Create a dark-theme branch. Nothing visually changes yet — the point is understanding what a branch is.",
   "stack": {
     "frontend": {
       "html": "5",
